@@ -6,19 +6,19 @@ const blogPostsData = [
   {
     title: "Machine Learning Fundamentals: A Practical Approach",
     description: "Exploring the core concepts of machine learning with hands-on examples and practical applications in data science.",
-    imageUrl: "https://images.unsplash.com/photo-1527474305487-b87b222841cc?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3",
+    imageUrl: "/lovable-uploads/4d229613-7dd6-437b-b3cb-2ff3a8a3d112.png",
     url: "https://medium.com/@rishikadrona.rd/machine-learning-fundamentals-a-practical-approach-7d82ea7c3f0b"
   },
   {
     title: "Data Visualization Techniques for Business Intelligence",
     description: "How effective data visualization can transform raw data into actionable business insights using modern tools.",
-    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3",
+    imageUrl: "/lovable-uploads/4d229613-7dd6-437b-b3cb-2ff3a8a3d112.png",
     url: "https://medium.com/@rishikadrona.rd"
   },
   {
     title: "Natural Language Processing in the Real World",
     description: "Examining how NLP is transforming industries from healthcare to finance with practical implementation examples.",
-    imageUrl: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3",
+    imageUrl: "/lovable-uploads/4d229613-7dd6-437b-b3cb-2ff3a8a3d112.png",
     url: "https://medium.com/@rishikadrona.rd"
   }
 ];

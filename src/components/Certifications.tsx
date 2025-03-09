@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from 'react';
-import { Award, ExternalLink, Sparkles, Zap } from 'lucide-react';
+import { Award, ExternalLink, Sparkles } from 'lucide-react';
 
 const certificationsData = [
   {
@@ -9,7 +9,7 @@ const certificationsData = [
     date: "Oct 2023",
     description: "Advanced certification validating expertise in designing, implementing, and maintaining machine learning solutions on AWS.",
     credentialUrl: "https://www.linkedin.com/in/rishika-drona/",
-    badgeImg: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3"
+    badgeImg: "/lovable-uploads/4d229613-7dd6-437b-b3cb-2ff3a8a3d112.png"
   },
   {
     title: "Microsoft Certified: Azure Data Scientist Associate",
@@ -17,7 +17,7 @@ const certificationsData = [
     date: "May 2023",
     description: "Certification demonstrating proficiency in applying data science and machine learning techniques on Azure.",
     credentialUrl: "https://www.linkedin.com/in/rishika-drona/",
-    badgeImg: "https://images.unsplash.com/photo-1633419461186-7d40a38105ec?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3"
+    badgeImg: "/lovable-uploads/4d229613-7dd6-437b-b3cb-2ff3a8a3d112.png"
   },
   {
     title: "TensorFlow Developer Certificate",
@@ -25,7 +25,7 @@ const certificationsData = [
     date: "Dec 2022",
     description: "Validates skills in using TensorFlow to build and train machine learning models for a variety of applications.",
     credentialUrl: "https://www.linkedin.com/in/rishika-drona/",
-    badgeImg: "https://images.unsplash.com/photo-1591696331111-ef9586a5b17a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3"
+    badgeImg: "/lovable-uploads/4d229613-7dd6-437b-b3cb-2ff3a8a3d112.png"
   },
   {
     title: "Data Science Professional Certificate",
@@ -33,7 +33,7 @@ const certificationsData = [
     date: "Aug 2022",
     description: "Comprehensive credential covering data science methodologies, tools, and techniques with practical applications.",
     credentialUrl: "https://www.linkedin.com/in/rishika-drona/",
-    badgeImg: "https://images.unsplash.com/photo-1599658880307-94c774b664a7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3"
+    badgeImg: "/lovable-uploads/4d229613-7dd6-437b-b3cb-2ff3a8a3d112.png"
   }
 ];
 

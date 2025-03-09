@@ -1,16 +1,37 @@
 
 import React from 'react';
 import { FileDown } from 'lucide-react';
+import { toast } from "@/components/ui/use-toast";
 
 const ResumeButton = () => {
   const handleResumeDownload = () => {
-    // Create a downloadable link for the resume
-    const link = document.createElement('a');
-    link.href = '/resume.pdf'; // This assumes you'll add the PDF to the public folder
-    link.download = 'RishikaDrona_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Create an anchor link to download the resume
+    try {
+      const link = document.createElement('a');
+      
+      // Set the link to the resume file in the public folder
+      link.href = '/RD_resume.pdf'; 
+      link.download = 'RishikaDrona_Resume.pdf';
+      
+      // Append to body, click it, and remove it
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      toast({
+        title: "Download started",
+        description: "Your resume download has started successfully.",
+        duration: 3000,
+      });
+    } catch (error) {
+      console.error("Error downloading resume:", error);
+      toast({
+        title: "Download failed",
+        description: "Please try again or contact me directly for a copy.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    }
   };
 
   return (
