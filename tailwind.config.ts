@@ -109,6 +109,7 @@ export default {
 			},
 			boxShadow: {
 				'neo': '10px 10px 20px rgba(0, 0, 0, 0.03), -10px -10px 20px rgba(255, 255, 255, 0.8)',
+				'neo-hover': '15px 15px 30px rgba(0, 0, 0, 0.05), -15px -15px 30px rgba(255, 255, 255, 0.9)',
 				'neo-inset': 'inset 5px 5px 10px rgba(0, 0, 0, 0.05), inset -5px -5px 10px rgba(255, 255, 255, 0.8)',
 				'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.05)',
 			},
