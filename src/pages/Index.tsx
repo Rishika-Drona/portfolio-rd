@@ -11,6 +11,7 @@ import TableauVisualizations from '@/components/TableauVisualizations';
 import BlogPosts from '@/components/BlogPosts';
 import Certifications from '@/components/Certifications';
 import ResumeButton from '@/components/ResumeButton';
+import DataVisualizations from '@/components/DataVisualizations';
 import { ArrowUp } from 'lucide-react';
 
 const Index = () => {
@@ -314,6 +315,7 @@ const Index = () => {
         <Experience />
         <Projects />
         <Skills />
+        <DataVisualizations /> {/* Add the new component here */}
         <Certifications />
         <TableauVisualizations />
         <BlogPosts />

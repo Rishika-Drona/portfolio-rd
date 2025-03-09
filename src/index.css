@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -209,6 +208,110 @@
   
   .card-3d-content {
     transform-style: preserve-3d;
+  }
+
+  /* Data Visualization Components */
+  .heartbeat-line {
+    width: 4px;
+    background-color: rgba(239, 68, 68, 0.7);
+    margin: 0 1px;
+    border-radius: 2px;
+    animation: heartbeat 2s infinite ease-in-out;
+    transform-origin: bottom;
+  }
+
+  .bar-chart-column {
+    border-radius: 4px 4px 0 0;
+    animation: bar-rise 1.5s ease-out forwards;
+    transform-origin: bottom;
+    opacity: 0;
+  }
+
+  .audio-wave-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 90%;
+    gap: 3px;
+  }
+
+  .audio-wave-bar {
+    width: 3px;
+    height: 15px;
+    background-color: rgba(139, 92, 246, 0.7);
+    border-radius: 2px;
+    animation: audio-wave infinite ease-in-out;
+  }
+
+  .line-chart-path {
+    stroke-dasharray: 150;
+    stroke-dashoffset: 150;
+    animation: line-draw 4s linear forwards;
+  }
+
+  .histogram-container {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    width: 100%;
+    gap: 2px;
+  }
+
+  .histogram-group {
+    display: flex;
+    gap: 1px;
+    height: 100%;
+    align-items: flex-end;
+  }
+
+  .histogram-bar {
+    width: 4px;
+    border-radius: 2px 2px 0 0;
+    animation: histogram-appear 0.8s ease-out forwards;
+    opacity: 0;
+    transform-origin: bottom;
+  }
+
+  .energy-wave {
+    position: relative;
+    width: 120px;
+    height: 120px;
+  }
+
+  .energy-wave-circle {
+    position: absolute;
+    border: 2px solid rgba(234, 179, 8, 0.5);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: energy-pulse 4s linear infinite;
+    opacity: 0;
+  }
+
+  .energy-wave-circle:nth-child(1) {
+    width: 30px;
+    height: 30px;
+    animation-delay: 0s;
+  }
+
+  .energy-wave-circle:nth-child(2) {
+    width: 60px;
+    height: 60px;
+    animation-delay: 1s;
+  }
+
+  .energy-wave-circle:nth-child(3) {
+    width: 90px;
+    height: 90px;
+    animation-delay: 2s;
+  }
+
+  .energy-wave-circle:nth-child(4) {
+    width: 120px;
+    height: 120px;
+    animation-delay: 3s;
   }
 }
 
@@ -461,4 +564,37 @@ div[id="blog"].visible .blog-card {
   .shadow-3d-hover {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 20px 45px rgba(0, 0, 0, 0.1);
   }
+}
+
+/* Data Visualization Animations */
+@keyframes heartbeat {
+  0%, 100% { transform: scaleY(0.3); }
+  10% { transform: scaleY(1.2); }
+  20% { transform: scaleY(0.4); }
+  30% { transform: scaleY(0.8); }
+  40%, 60% { transform: scaleY(0.3); }
+}
+
+@keyframes bar-rise {
+  0% { transform: scaleY(0); opacity: 0; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes audio-wave {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes line-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes histogram-appear {
+  0% { transform: scaleY(0); opacity: 0; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes energy-pulse {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
 }
