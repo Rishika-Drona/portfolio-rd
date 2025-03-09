@@ -9,7 +9,7 @@ const certificationsData = [
     date: "Oct 2023",
     description: "Advanced certification validating expertise in designing, implementing, and maintaining machine learning solutions on AWS.",
     credentialUrl: "https://www.linkedin.com/in/rishika-drona/",
-    badgeImg: "https://images.credly.com/size/340x340/images/7fbb805d-ea82-4276-a227-e63121a2844b/AWS-MachineLearning-Specialty-2020.png"
+    badgeImg: "https://images.credly.com/images/7fbb805d-ea82-4276-a227-e63121a2844b/image.png"
   },
   {
     title: "Microsoft Certified: Azure Data Scientist Associate",
@@ -17,7 +17,7 @@ const certificationsData = [
     date: "May 2023",
     description: "Certification demonstrating proficiency in applying data science and machine learning techniques on Azure.",
     credentialUrl: "https://www.linkedin.com/in/rishika-drona/",
-    badgeImg: "https://images.credly.com/size/340x340/images/5c8fca38-b0d2-49e5-9ad2-f3f8e79b327f/azure-data-scientist-associate-600x600.png"
+    badgeImg: "https://images.credly.com/images/5c8fca38-b0d2-49e5-9ad2-f3f8e79b327f/image.png"
   },
   {
     title: "TensorFlow Developer Certificate",
@@ -25,7 +25,7 @@ const certificationsData = [
     date: "Dec 2022",
     description: "Validates skills in using TensorFlow to build and train machine learning models for a variety of applications.",
     credentialUrl: "https://www.linkedin.com/in/rishika-drona/",
-    badgeImg: "https://images.credly.com/size/340x340/images/30e2e915-d105-44ce-b268-e4ed74aadb4e/TensorFlow_Developer_Certificate.png"
+    badgeImg: "https://images.credly.com/images/30e2e915-d105-44ce-b268-e4ed74aadb4e/image.png"
   },
   {
     title: "Data Science Professional Certificate",
@@ -33,7 +33,7 @@ const certificationsData = [
     date: "Aug 2022",
     description: "Comprehensive credential covering data science methodologies, tools, and techniques with practical applications.",
     credentialUrl: "https://www.linkedin.com/in/rishika-drona/",
-    badgeImg: "https://images.credly.com/size/340x340/images/28944969-813a-43b9-944f-7910111ce764/Professional_Certificate_-_Data_Science.png"
+    badgeImg: "https://images.credly.com/images/28944969-813a-43b9-944f-7910111ce764/image.png"
   }
 ];
 

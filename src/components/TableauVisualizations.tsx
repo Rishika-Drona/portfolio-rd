@@ -6,19 +6,19 @@ const visualizationData = [
   {
     title: "Customer Segmentation Analysis",
     description: "Interactive dashboard analyzing customer segments based on purchase behavior and demographics.",
-    imageUrl: "https://public.tableau.com/static/images/Bo/BostonPropertyAssessment/Dashboard/1_rss.png",
+    imageUrl: "https://public.tableau.com/static/images/SuperstoreSales_16338389166480/SuperstoreSalesDashboard.png",
     tableauUrl: "https://public.tableau.com/app/profile/rishika.drona/vizzes"
   },
   {
     title: "Sales Performance Metrics",
     description: "Comprehensive visualization of sales metrics across regions with trend analysis and forecasting.",
-    imageUrl: "https://public.tableau.com/static/images/sa/sample-superstore-2022/SalesDashboard/1_rss.png",
+    imageUrl: "https://public.tableau.com/static/images/Re/RegionalSalesDashboard_16722481556570/SalesOverview.png",
     tableauUrl: "https://public.tableau.com/app/profile/rishika.drona/vizzes"
   },
   {
     title: "Product Performance Dashboard",
     description: "Analysis of product performance metrics including sales volume, revenue, and customer satisfaction scores.",
-    imageUrl: "https://public.tableau.com/static/images/Pr/ProductMarginbyCustomerState/Overview/1_rss.png", 
+    imageUrl: "https://public.tableau.com/static/images/Pr/ProductAnalyticsDashboard_16722484510950/ProductPerformance.png", 
     tableauUrl: "https://public.tableau.com/app/profile/rishika.drona/vizzes"
   }
 ];
