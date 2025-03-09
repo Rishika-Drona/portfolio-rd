@@ -8,32 +8,28 @@ const certificationsData = [
     issuer: "Amazon Web Services",
     date: "Oct 2023",
     description: "Advanced certification validating expertise in designing, implementing, and maintaining machine learning solutions on AWS.",
-    credentialUrl: "https://www.linkedin.com/in/rishika-drona/",
-    badgeImg: "/lovable-uploads/4d229613-7dd6-437b-b3cb-2ff3a8a3d112.png"
+    credentialUrl: "https://www.linkedin.com/in/rishika-drona/"
   },
   {
     title: "Microsoft Certified: Azure Data Scientist Associate",
     issuer: "Microsoft",
     date: "May 2023",
     description: "Certification demonstrating proficiency in applying data science and machine learning techniques on Azure.",
-    credentialUrl: "https://www.linkedin.com/in/rishika-drona/",
-    badgeImg: "/lovable-uploads/4d229613-7dd6-437b-b3cb-2ff3a8a3d112.png"
+    credentialUrl: "https://www.linkedin.com/in/rishika-drona/"
   },
   {
     title: "TensorFlow Developer Certificate",
     issuer: "Google",
     date: "Dec 2022",
     description: "Validates skills in using TensorFlow to build and train machine learning models for a variety of applications.",
-    credentialUrl: "https://www.linkedin.com/in/rishika-drona/",
-    badgeImg: "/lovable-uploads/4d229613-7dd6-437b-b3cb-2ff3a8a3d112.png"
+    credentialUrl: "https://www.linkedin.com/in/rishika-drona/"
   },
   {
     title: "Data Science Professional Certificate",
     issuer: "IBM",
     date: "Aug 2022",
     description: "Comprehensive credential covering data science methodologies, tools, and techniques with practical applications.",
-    credentialUrl: "https://www.linkedin.com/in/rishika-drona/",
-    badgeImg: "/lovable-uploads/4d229613-7dd6-437b-b3cb-2ff3a8a3d112.png"
+    credentialUrl: "https://www.linkedin.com/in/rishika-drona/"
   }
 ];
 
@@ -83,15 +79,10 @@ const Certifications = () => {
               key={index} 
               className="neo-card h-full flex flex-col group hover:shadow-lg transition-all duration-500"
             >
-              <div className="relative mb-4 flex justify-center">
+              <div className="relative mb-4">
                 <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
                   <Sparkles size={16} />
                 </div>
-                <img 
-                  src={cert.badgeImg} 
-                  alt={cert.title} 
-                  className="w-28 h-28 object-contain transition-transform group-hover:scale-105 duration-300"
-                />
               </div>
               
               <h3 className="text-base font-semibold mb-1 text-gray-900 group-hover:text-primary transition-colors">{cert.title}</h3>

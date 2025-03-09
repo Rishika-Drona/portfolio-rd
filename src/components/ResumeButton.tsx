@@ -5,15 +5,17 @@ import { toast } from "@/components/ui/use-toast";
 
 const ResumeButton = () => {
   const handleResumeDownload = () => {
-    // Create an anchor link to download the resume
     try {
+      // Create an anchor link element
       const link = document.createElement('a');
       
-      // Set the link to the resume file in the public folder
-      link.href = '/RD_resume.pdf'; 
+      // Set the href to the resume file location
+      link.href = '/RD_resume.pdf';
+      
+      // Set the download attribute with the desired filename
       link.download = 'RishikaDrona_Resume.pdf';
       
-      // Append to body, click it, and remove it
+      // Append to body, click it, then remove it
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
