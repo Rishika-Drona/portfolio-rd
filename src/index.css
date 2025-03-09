@@ -57,15 +57,16 @@
     width: 100%;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply text-foreground antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
     perspective: 1000px;
     position: relative;
     overflow-x: hidden;
-    background-color: transparent !important;
+    background-color: transparent; 
     will-change: background-position;
     transition: background-position 0.5s ease-out;
   }
@@ -83,6 +84,19 @@
   ::selection {
     @apply bg-primary/20 text-foreground;
   }
+}
+
+#background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.7) 100%);
+  pointer-events: none;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
 }
 
 @layer components {
@@ -319,19 +333,6 @@
     top: 0;
     left: 0;
     z-index: -1;
-  }
-
-  #background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.9) 100%);
-    pointer-events: none;
-    transition: transform 0.3s ease-out;
-    will-change: transform;
   }
 
   .interactive-network-dot {
@@ -619,4 +620,3 @@ div[id="blog"].visible .blog-card {
     transform: translate(15px, 15px) translateZ(4px);
   }
 }
-

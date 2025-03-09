@@ -95,16 +95,21 @@ const Index = () => {
       document.body.style.backgroundPosition = 'center';
       document.body.style.backgroundRepeat = 'no-repeat';
       document.body.style.backgroundAttachment = 'fixed';
+      document.body.style.zIndex = '-2';
       
       const backgroundOverlay = document.createElement('div');
       backgroundOverlay.id = 'background-overlay';
       backgroundOverlay.style.position = 'fixed';
       backgroundOverlay.style.inset = '0';
-      backgroundOverlay.style.background = 'radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.95) 100%)';
+      backgroundOverlay.style.background = 'radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.7) 100%)';
       backgroundOverlay.style.zIndex = '-1';
       backgroundOverlay.style.pointerEvents = 'none';
       
-      document.body.insertBefore(backgroundOverlay, document.body.firstChild);
+      if (document.body.firstChild) {
+        document.body.insertBefore(backgroundOverlay, document.body.firstChild);
+      } else {
+        document.body.appendChild(backgroundOverlay);
+      }
       
       const container = trendingLinesRef.current;
       const containerWidth = container.clientWidth;
