@@ -1,6 +1,6 @@
 
 import { useEffect, useRef, useState } from 'react';
-import { Calendar, MapPin, Award, Briefcase, ChevronDown, ChevronUp } from 'lucide-react';
+import { Calendar, MapPin, Award, Briefcase, ChevronDown, ChevronUp, Zap } from 'lucide-react';
 
 const experienceData = [
   {
@@ -93,6 +93,39 @@ const experienceData = [
       "Received recognition for developing an algorithm that improved metal quality classification accuracy by 28%",
       "Successfully led the migration of analytics infrastructure to cloud platforms, resulting in 40% cost reduction"
     ]
+  },
+  {
+    company: "Exert Infotech",
+    location: "India",
+    position: "Data Analyst",
+    period: "Nov 2017 - Jun 2018",
+    responsibilities: [
+      "Scrapped more than 4000 customer reviews from e-commerce websites with Python, leveraging NLP techniques to analyze the comments.",
+      "Used Sentiment Analysis to determine the key areas influencing the consumer satisfaction.",
+      "Established a predicting model to estimate the expenditure based on the sales in 2017, helping the company to increase the advertising revenue by 10%.",
+      "Applied statistical modeling through ML algorithms (Random Forest, Neural Network etc.) to identify social network exposure impact.",
+      "Worked with SQL, stored procedures, Triggers, SQL queries and loading data into Data Warehouse/Data Marts."
+    ],
+    achievements: [
+      "Delivered insights that directly improved marketing strategy effectiveness",
+      "Created reusable data analysis templates that were adopted company-wide"
+    ]
+  },
+  {
+    company: "Centre for Development of Advanced Computing",
+    location: "India",
+    position: "App Developer",
+    period: "May 2017 - Mar 2018",
+    responsibilities: [
+      "Launched 4 Applications on Android and IOS Appstore, resulting in 10k+ downloads worldwide.",
+      "Performed root-cause-analysis and resolved bugs leading to 50% more boost in downloads and ratings.",
+      "Ensured zero defects by performing unit & integration testing of changes prior to moving to production.",
+      "Awarded best performer group for the app development practices."
+    ],
+    achievements: [
+      "Recognized as top developer in the internship program",
+      "Created a developer documentation framework that improved onboarding time for new team members"
+    ]
   }
 ];
 
@@ -132,7 +165,9 @@ const Experience = () => {
   return (
     <section id="experience" className="section-container">
       <div className="main-container">
-        <h2 className="section-title">Work Experience</h2>
+        <h2 className="section-title flex items-center">
+          <Briefcase size={28} className="mr-2 text-primary animate-pulse-subtle" /> Work Experience
+        </h2>
         
         <div 
           ref={experienceRef} 
@@ -141,7 +176,7 @@ const Experience = () => {
           {experienceData.map((job, index) => (
             <div 
               key={index} 
-              className="timeline-item neo-card mb-6 transition-all hover:shadow-lg"
+              className="timeline-item neo-card mb-6 transition-all hover:shadow-lg group"
             >
               <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
                 <div>
@@ -170,15 +205,15 @@ const Experience = () => {
               {job.responsibilities.length > 3 && (
                 <button 
                   onClick={() => toggleJob(index)}
-                  className="text-sm text-primary font-medium flex items-center hover:text-primary/80 transition-colors mb-3 cursor-pointer"
+                  className="group text-sm text-primary font-medium flex items-center hover:text-primary/80 transition-colors mb-3 cursor-pointer bg-primary/10 rounded-full px-4 py-1.5 hover:bg-primary/20"
                 >
                   {expandedJobs[index] ? (
                     <>
-                      Show less <ChevronUp size={16} className="ml-1" />
+                      <span className="mr-1">Show less</span> <ChevronUp size={16} className="transition-transform group-hover:-translate-y-0.5" />
                     </>
                   ) : (
                     <>
-                      Show more <ChevronDown size={16} className="ml-1" />
+                      <span className="mr-1">Show more</span> <ChevronDown size={16} className="transition-transform group-hover:translate-y-0.5" />
                     </>
                   )}
                 </button>

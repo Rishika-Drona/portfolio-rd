@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from 'react';
-import { ExternalLink, BookOpen } from 'lucide-react';
+import { ExternalLink, BookOpen, Sparkles, Zap, Flame } from 'lucide-react';
 
 const blogPostsData = [
   {
@@ -51,7 +51,7 @@ const BlogPosts = () => {
     <section id="blog" className="section-container bg-gradient-to-b from-accent/30 to-white">
       <div className="main-container">
         <h2 className="section-title flex items-center">
-          <BookOpen size={24} className="mr-2 text-primary" /> Blog Articles
+          <BookOpen size={28} className="mr-2 text-primary animate-pulse-subtle" /> Blog Articles
         </h2>
         
         <div className="mb-6 max-w-2xl">
@@ -68,19 +68,23 @@ const BlogPosts = () => {
           {blogPostsData.map((post, index) => (
             <div 
               key={index} 
-              className="blog-card neo-card overflow-hidden h-full flex flex-col group"
+              className="blog-card neo-card overflow-hidden h-full flex flex-col group hover:shadow-lg transition-all duration-500"
             >
               <div className="relative overflow-hidden h-48 -mx-6 -mt-6 mb-4">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
                   <a 
                     href={post.url} 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-white/90 text-primary font-medium px-4 py-2 rounded-lg shadow-md transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 flex items-center"
+                    className="bg-white/90 text-primary font-medium px-5 py-2.5 rounded-lg shadow-md transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 flex items-center"
                   >
-                    Read Article <ExternalLink size={16} className="ml-2" />
+                    <Flame size={18} className="mr-2 text-orange-500" /> Read Article
                   </a>
                 </div>
+                
+                {/* Animated overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-0"></div>
+                
                 <img 
                   src={post.imageUrl} 
                   alt={post.title} 
@@ -88,16 +92,17 @@ const BlogPosts = () => {
                 />
               </div>
               
-              <h3 className="text-lg font-semibold mb-2 text-gray-900">{post.title}</h3>
+              <h3 className="text-lg font-semibold mb-2 text-gray-900 group-hover:text-primary transition-colors">{post.title}</h3>
               <p className="text-gray-700 text-sm flex-grow">{post.description}</p>
               
               <a 
                 href={post.url} 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 text-primary font-medium text-sm inline-flex items-center hover:text-primary/80 transition-colors"
+                className="mt-4 text-primary font-medium text-sm inline-flex items-center hover:text-primary/80 transition-colors group"
               >
-                Continue Reading <ExternalLink size={14} className="ml-1" />
+                <span>Continue Reading</span> 
+                <ExternalLink size={14} className="ml-1 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
           ))}
@@ -108,10 +113,14 @@ const BlogPosts = () => {
             href="https://medium.com/@rishikadrona.rd" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="btn-primary group"
+            className="btn-primary group relative overflow-hidden"
           >
-            View All Articles
-            <ExternalLink size={16} className="ml-2 group-hover:rotate-12 transition-transform" />
+            <span className="relative z-10 flex items-center">
+              <Sparkles size={18} className="mr-2 animate-pulse-subtle" />
+              <span>Discover All Articles</span>
+              <ExternalLink size={16} className="ml-2 group-hover:rotate-12 transition-transform" />
+            </span>
+            <span className="absolute inset-0 bg-gradient-to-r from-primary via-purple-600 to-primary bg-[length:200%_100%] animate-gradient-x opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
           </a>
         </div>
       </div>
