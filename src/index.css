@@ -158,6 +158,15 @@
     transform: translateZ(4px) translateY(-4px);
   }
 
+  .blog-card {
+    @apply neo-card transition-all duration-300 hover:shadow-lg border-b-4 border-transparent hover:border-primary;
+    transform-style: preserve-3d;
+  }
+  
+  .blog-card:hover {
+    transform: translateZ(4px) translateY(-5px) scale(1.01);
+  }
+
   .skill-tag {
     @apply px-3 py-1 bg-white rounded-lg text-sm shadow-sm border border-gray-100 hover:bg-primary/5 hover:border-primary/20 transition-all duration-300 cursor-default;
     transform: translateZ(2px);
@@ -266,6 +275,31 @@
   transform: translateY(0);
 }
 
+/* Blog cards staggered animation */
+div[id="blog"] .blog-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+div[id="blog"].visible .blog-card:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+div[id="blog"].visible .blog-card:nth-child(2) {
+  transition-delay: 0.25s;
+}
+
+div[id="blog"].visible .blog-card:nth-child(3) {
+  transition-delay: 0.4s;
+}
+
+div[id="blog"].visible .blog-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Skill tags animation */
 .skill-grid .skill-tag {
   opacity: 0;
@@ -311,7 +345,7 @@
   text-shadow: 0px 0px 3px rgba(155, 135, 245, 0.2);
 }
 
-/* Animations */
+/* Enhanced Animations */
 @keyframes float {
   0% { transform: translateY(0px) translateZ(0px) rotate(0deg); }
   50% { transform: translateY(-10px) translateZ(5px) rotate(5deg); }
@@ -365,6 +399,15 @@
   }
 }
 
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
 .animate-float {
   animation: float 5s ease-in-out infinite;
   transform-style: preserve-3d;
@@ -372,6 +415,10 @@
 
 .animate-pulse-glow {
   animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
 }
 
 /* Perspective Tilt */

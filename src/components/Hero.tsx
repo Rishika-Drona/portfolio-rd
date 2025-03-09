@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from 'react';
-import { ArrowRight, Mail, Github, Linkedin, ExternalLink, Download } from 'lucide-react';
+import { ArrowRight, Mail, Github, Linkedin, ExternalLink, Download, BookOpen } from 'lucide-react';
 
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -19,6 +19,22 @@ const Hero = () => {
       observer.observe(heroRef.current);
     }
     
+    // Add subtle movement to background elements
+    const animateBackground = () => {
+      const bgElements = document.querySelectorAll('.bg-blob');
+      bgElements.forEach((elem, index) => {
+        const speed = 0.5 + (index * 0.1);
+        const x = Math.sin(Date.now() / (2000 / speed)) * 15;
+        const y = Math.cos(Date.now() / (2000 / speed)) * 15;
+        
+        (elem as HTMLElement).style.transform = `translate(${x}px, ${y}px)`;
+      });
+      
+      requestAnimationFrame(animateBackground);
+    };
+    
+    animateBackground();
+    
     return () => {
       if (heroRef.current) {
         observer.unobserve(heroRef.current);
@@ -31,9 +47,11 @@ const Hero = () => {
       id="hero" 
       className="min-h-screen flex items-center pt-20 pb-16 overflow-hidden relative"
     >
-      {/* Abstract background elements */}
-      <div className="absolute top-20 right-0 w-64 h-64 bg-primary/5 rounded-full filter blur-3xl"></div>
-      <div className="absolute bottom-20 left-0 w-96 h-96 bg-purple-100 rounded-full filter blur-3xl opacity-60"></div>
+      {/* Enhanced abstract background elements */}
+      <div className="absolute top-20 right-0 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl opacity-70 bg-blob"></div>
+      <div className="absolute bottom-20 left-0 w-96 h-96 bg-purple-100 rounded-full filter blur-3xl opacity-60 bg-blob"></div>
+      <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-blue-50 rounded-full filter blur-3xl opacity-40 bg-blob"></div>
+      <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-pink-50 rounded-full filter blur-3xl opacity-50 bg-blob"></div>
       
       <div className="main-container relative z-10">
         <div 
@@ -97,6 +115,15 @@ const Hero = () => {
               aria-label="LinkedIn"
             >
               <Linkedin size={20} />
+            </a>
+            <a 
+              href="https://medium.com/@rishikadrona.rd" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="social-icon"
+              aria-label="Blog"
+            >
+              <BookOpen size={20} />
             </a>
           </div>
         </div>
