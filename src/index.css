@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -73,8 +74,9 @@
   }
   
   .neo-card {
-    @apply bg-white shadow-neo rounded-xl p-6 transform transition-transform duration-300 shadow-neo-hover;
+    @apply bg-white shadow-neo rounded-xl p-6 transform transition-all duration-300 shadow-neo-hover cursor-default;
     transform-style: preserve-3d;
+    will-change: transform;
   }
   
   .neo-card:hover {
@@ -129,7 +131,7 @@
   }
   
   .btn-primary:hover {
-    transform: translateZ(4px) translateY(-2px);
+    transform: translateZ(5px) translateY(-3px);
   }
 
   .btn-secondary {
@@ -138,7 +140,7 @@
   }
   
   .btn-secondary:hover {
-    transform: translateZ(3px) translateY(-2px);
+    transform: translateZ(4px) translateY(-2px);
   }
 
   .social-icon {
@@ -170,6 +172,8 @@
     transform-style: preserve-3d;
     transform: translateZ(1px);
     z-index: 1;
+    transition: transform 0.5s ease-out;
+    will-change: transform;
   }
 
   .trending-line.reverse {
@@ -185,6 +189,8 @@
     transform: translateZ(1px);
     z-index: 1;
     box-shadow: 0 0 10px 2px rgba(155, 135, 245, 0.2);
+    transition: transform 0.8s ease-out;
+    will-change: transform, opacity;
   }
 
   .parallax-card {
@@ -203,6 +209,18 @@
   .transform-z-3 { transform: translateZ(3px); }
   .transform-z-4 { transform: translateZ(4px); }
   .transform-z-5 { transform: translateZ(5px); }
+  
+  .hover\:transform-z-1:hover { transform: translateZ(1px); }
+  .hover\:transform-z-2:hover { transform: translateZ(2px); }
+  .hover\:transform-z-3:hover { transform: translateZ(3px); }
+  .hover\:transform-z-4:hover { transform: translateZ(4px); }
+  .hover\:transform-z-5:hover { transform: translateZ(5px); }
+  
+  .hover\:transform-z-up-1:hover { transform: translateZ(1px) translateY(-2px); }
+  .hover\:transform-z-up-2:hover { transform: translateZ(2px) translateY(-3px); }
+  .hover\:transform-z-up-3:hover { transform: translateZ(3px) translateY(-4px); }
+  
+  .shadowfilter { filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.15)); }
 }
 
 /* Smooth scrolling animations */
@@ -211,6 +229,7 @@
   transform: translateY(30px);
   transition: opacity 0.8s ease, transform 0.8s ease;
   transform-style: preserve-3d;
+  will-change: transform, opacity;
 }
 
 .scroll-appear.visible {
@@ -294,9 +313,9 @@
 
 /* Animations */
 @keyframes float {
-  0% { transform: translateY(0px) translateZ(0px); }
-  50% { transform: translateY(-10px) translateZ(5px); }
-  100% { transform: translateY(0px) translateZ(0px); }
+  0% { transform: translateY(0px) translateZ(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) translateZ(5px) rotate(5deg); }
+  100% { transform: translateY(0px) translateZ(0px) rotate(0deg); }
 }
 
 @keyframes moveLine {
@@ -311,7 +330,7 @@
 
 @keyframes floatParticle {
   0% { 
-    transform: translate(0, 0) translateZ(1px); 
+    transform: translate(0, 0) translateZ(1px) scale(1); 
     opacity: 0;
   }
   20% { 
@@ -321,7 +340,7 @@
     transform: translate(
       calc(30px * var(--direction, 1)), 
       calc(-50px * var(--float-factor, 1))
-    ) translateZ(3px); 
+    ) translateZ(3px) scale(1.2); 
   }
   80% { 
     opacity: 1; 
@@ -330,8 +349,19 @@
     transform: translate(
       calc(60px * var(--direction, 1)), 
       calc(-100px * var(--float-factor, 1))
-    ) translateZ(1px); 
+    ) translateZ(1px) scale(0.8); 
     opacity: 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    opacity: 0.7;
+    filter: blur(5px);
+  }
+  50% { 
+    opacity: 1;
+    filter: blur(8px);
   }
 }
 
@@ -340,15 +370,31 @@
   transform-style: preserve-3d;
 }
 
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
 /* Perspective Tilt */
 .tilt-card {
   transform-style: preserve-3d;
   transform: perspective(1000px);
   transition: transform 0.3s ease;
+  will-change: transform;
 }
 
 .tilt-card:hover {
   transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
+}
+
+/* Card glare effect */
+.card-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 /* Additional box shadows */

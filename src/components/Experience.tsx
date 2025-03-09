@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import { Calendar, MapPin, Award, Briefcase, ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -121,10 +122,11 @@ const Experience = () => {
   }, []);
 
   const toggleJob = (index: number) => {
-    setExpandedJobs(prev => ({
-      ...prev,
-      [index]: !prev[index]
-    }));
+    setExpandedJobs(prevState => {
+      const newState = { ...prevState };
+      newState[index] = !prevState[index];
+      return newState;
+    });
   };
 
   return (
@@ -168,7 +170,7 @@ const Experience = () => {
               {job.responsibilities.length > 3 && (
                 <button 
                   onClick={() => toggleJob(index)}
-                  className="text-sm text-primary font-medium flex items-center hover:text-primary/80 transition-colors mb-3"
+                  className="text-sm text-primary font-medium flex items-center hover:text-primary/80 transition-colors mb-3 cursor-pointer"
                 >
                   {expandedJobs[index] ? (
                     <>
