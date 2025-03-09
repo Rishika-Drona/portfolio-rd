@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import { Calendar, MapPin, Award, Briefcase, ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -22,7 +21,7 @@ const experienceData = [
     ]
   },
   {
-    company: "Scio",
+    company: "Deutsch, LA",
     location: "Remote",
     position: "Lead Data Scientist / ETL Developer",
     period: "Feb 2022 - Mar 2023",
