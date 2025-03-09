@@ -56,6 +56,7 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+    perspective: 1000px;
   }
 
   html {
@@ -73,34 +74,41 @@
   }
   
   .neo-card {
-    @apply bg-white shadow-neo rounded-xl p-6 hover:shadow-neo-hover transition-all duration-300;
+    @apply bg-white shadow-neo rounded-xl p-6 transform transition-transform duration-300 hover:translate-z-4 hover:shadow-neo-hover;
+    transform-style: preserve-3d;
   }
   
   .section-title {
     @apply text-2xl md:text-3xl font-semibold mb-6 inline-flex items-center;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
   }
   
   .section-title::before {
     content: "";
     @apply w-6 h-1 bg-primary rounded-full mr-3;
+    transform: translateZ(4px);
   }
   
   .tag {
     @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-accent text-primary hover:bg-primary/10 transition-colors;
+    transform: translateZ(2px);
   }
   
   .timeline-item {
     @apply relative pl-8 pb-10 last:pb-0;
+    transform-style: preserve-3d;
   }
   
   .timeline-item::before {
     content: "";
     @apply absolute left-0 top-2 w-3 h-3 rounded-full bg-primary;
+    transform: translateZ(3px);
   }
   
   .timeline-item::after {
     content: "";
     @apply absolute left-[5px] top-5 h-full w-[2px] bg-primary/20;
+    transform: translateZ(2px);
   }
   
   .timeline-item:last-child::after {
@@ -109,27 +117,68 @@
 
   .highlight-text {
     @apply text-primary font-semibold;
+    text-shadow: 0.5px 0.5px 0px rgba(0,0,0,0.1);
   }
 
   .btn-primary {
     @apply inline-flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg font-medium transition-all hover:bg-primary/90 hover:translate-y-[-2px] hover:shadow-lg active:translate-y-0;
+    transform: translateZ(4px);
   }
 
   .btn-secondary {
     @apply inline-flex items-center justify-center px-6 py-3 bg-gray-100 text-gray-800 rounded-lg font-medium transition-all hover:bg-gray-200 hover:translate-y-[-2px] hover:shadow-md active:translate-y-0;
+    transform: translateZ(3px);
   }
 
   .social-icon {
     @apply p-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-full transition-all duration-300 hover:rotate-6 transform;
+    transform-style: preserve-3d;
+    transform: translateZ(2px);
   }
 
   .project-card {
     @apply neo-card transition-all duration-300 hover:shadow-lg hover:translate-y-[-4px] border-l-4 border-transparent hover:border-primary;
+    transform-style: preserve-3d;
   }
 
   .skill-tag {
     @apply px-3 py-1 bg-white rounded-lg text-sm shadow-sm border border-gray-100 hover:bg-primary/5 hover:border-primary/20 transition-all duration-300 cursor-default;
+    transform: translateZ(2px);
   }
+  
+  .trending-line {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(155, 135, 245, 0), rgba(155, 135, 245, 0.8), rgba(155, 135, 245, 0));
+    animation: moveLine 8s infinite ease-in-out;
+    opacity: 0.5;
+    transform-style: preserve-3d;
+    transform: translateZ(1px);
+  }
+
+  .trending-line.reverse {
+    animation: moveLineReverse 10s infinite ease-in-out;
+  }
+  
+  .parallax-card {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+  }
+  
+  .card-3d-content {
+    transform-style: preserve-3d;
+  }
+  
+  .transform-z-1 { transform: translateZ(1px); }
+  .transform-z-2 { transform: translateZ(2px); }
+  .transform-z-3 { transform: translateZ(3px); }
+  .transform-z-4 { transform: translateZ(4px); }
+  .transform-z-5 { transform: translateZ(5px); }
+  
+  .hover:translate-z-1:hover { transform: translateZ(1px); }
+  .hover:translate-z-2:hover { transform: translateZ(2px); }
+  .hover:translate-z-3:hover { transform: translateZ(3px); }
+  .hover:translate-z-4:hover { transform: translateZ(4px); }
 }
 
 /* Smooth scrolling animations */
@@ -137,6 +186,7 @@
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+  transform-style: preserve-3d;
 }
 
 .scroll-appear.visible {
@@ -149,6 +199,7 @@
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
+  transform-style: preserve-3d;
 }
 
 .project-grid.visible .project-card:nth-child(1) {
@@ -214,17 +265,40 @@
 /* Gradient text */
 .gradient-text {
   @apply bg-gradient-to-r from-purple-600 via-blue-500 to-purple-600 bg-clip-text text-transparent font-bold;
+  text-shadow: 0px 0px 3px rgba(155, 135, 245, 0.2);
 }
 
 /* Animations */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% { transform: translateY(0px) translateZ(0px); }
+  50% { transform: translateY(-10px) translateZ(5px); }
+  100% { transform: translateY(0px) translateZ(0px); }
+}
+
+@keyframes moveLine {
+  0% { transform: translateX(-100%) translateZ(1px); }
+  100% { transform: translateX(100%) translateZ(1px); }
+}
+
+@keyframes moveLineReverse {
+  0% { transform: translateX(100%) translateZ(1px); }
+  100% { transform: translateX(-100%) translateZ(1px); }
 }
 
 .animate-float {
   animation: float 5s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+/* Perspective Tilt */
+.tilt-card {
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  transition: transform 0.3s ease;
+}
+
+.tilt-card:hover {
+  transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
 }
 
 /* Additional box shadows */
@@ -237,5 +311,11 @@
   }
   .shadow-neo-inset {
     box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.05), inset -5px -5px 10px rgba(255, 255, 255, 0.8);
+  }
+  .shadow-3d {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), 0 15px 35px rgba(0, 0, 0, 0.05);
+  }
+  .shadow-3d-hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 20px 45px rgba(0, 0, 0, 0.1);
   }
 }
