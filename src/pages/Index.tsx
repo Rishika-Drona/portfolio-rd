@@ -73,7 +73,7 @@ const Index = () => {
       const cards = document.querySelectorAll('.neo-card, .project-card, .parallax-card');
       
       cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
+        card.addEventListener('mousemove', (e: MouseEvent) => {
           const rect = (card as HTMLElement).getBoundingClientRect();
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;

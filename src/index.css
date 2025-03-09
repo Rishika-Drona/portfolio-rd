@@ -74,8 +74,12 @@
   }
   
   .neo-card {
-    @apply bg-white shadow-neo rounded-xl p-6 transform transition-transform duration-300 hover:translate-z-4 hover:shadow-neo-hover;
+    @apply bg-white shadow-neo rounded-xl p-6 transform transition-transform duration-300 shadow-neo-hover;
     transform-style: preserve-3d;
+  }
+  
+  .neo-card:hover {
+    transform: translateZ(4px);
   }
   
   .section-title {
@@ -121,13 +125,21 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg font-medium transition-all hover:bg-primary/90 hover:translate-y-[-2px] hover:shadow-lg active:translate-y-0;
+    @apply inline-flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg font-medium transition-all hover:bg-primary/90 hover:shadow-lg active:translate-y-0;
     transform: translateZ(4px);
+  }
+  
+  .btn-primary:hover {
+    transform: translateZ(4px) translateY(-2px);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-gray-100 text-gray-800 rounded-lg font-medium transition-all hover:bg-gray-200 hover:translate-y-[-2px] hover:shadow-md active:translate-y-0;
+    @apply inline-flex items-center justify-center px-6 py-3 bg-gray-100 text-gray-800 rounded-lg font-medium transition-all hover:bg-gray-200 hover:shadow-md active:translate-y-0;
     transform: translateZ(3px);
+  }
+  
+  .btn-secondary:hover {
+    transform: translateZ(3px) translateY(-2px);
   }
 
   .social-icon {
@@ -137,8 +149,12 @@
   }
 
   .project-card {
-    @apply neo-card transition-all duration-300 hover:shadow-lg hover:translate-y-[-4px] border-l-4 border-transparent hover:border-primary;
+    @apply neo-card transition-all duration-300 hover:shadow-lg border-l-4 border-transparent hover:border-primary;
     transform-style: preserve-3d;
+  }
+  
+  .project-card:hover {
+    transform: translateZ(4px) translateY(-4px);
   }
 
   .skill-tag {
@@ -168,17 +184,14 @@
   .card-3d-content {
     transform-style: preserve-3d;
   }
-  
+}
+
+@layer utilities {
   .transform-z-1 { transform: translateZ(1px); }
   .transform-z-2 { transform: translateZ(2px); }
   .transform-z-3 { transform: translateZ(3px); }
   .transform-z-4 { transform: translateZ(4px); }
   .transform-z-5 { transform: translateZ(5px); }
-  
-  .hover:translate-z-1:hover { transform: translateZ(1px); }
-  .hover:translate-z-2:hover { transform: translateZ(2px); }
-  .hover:translate-z-3:hover { transform: translateZ(3px); }
-  .hover:translate-z-4:hover { transform: translateZ(4px); }
 }
 
 /* Smooth scrolling animations */
