@@ -52,19 +52,74 @@ const Index = () => {
       const containerWidth = container.clientWidth;
       const containerHeight = container.clientHeight;
       
-      // Create lines
-      for (let i = 0; i < 10; i++) {
+      // Create more visible lines with different sizes and speeds
+      for (let i = 0; i < 20; i++) {
         const line = document.createElement('div');
         line.classList.add('trending-line');
+        
+        // Alternate colors
+        if (i % 3 === 0) {
+          line.style.background = 'linear-gradient(90deg, rgba(155, 135, 245, 0), rgba(155, 135, 245, 0.9), rgba(155, 135, 245, 0))';
+          line.style.height = '3px';
+        } else if (i % 3 === 1) {
+          line.style.background = 'linear-gradient(90deg, rgba(255, 135, 177, 0), rgba(255, 135, 177, 0.8), rgba(255, 135, 177, 0))';
+          line.style.height = '2px';
+        } else {
+          line.style.background = 'linear-gradient(90deg, rgba(135, 206, 255, 0), rgba(135, 206, 255, 0.7), rgba(135, 206, 255, 0))';
+          line.style.height = '2px';
+        }
+        
+        // Add reverse direction for half the lines
         if (i % 2 === 0) line.classList.add('reverse');
         
         // Random positioning and sizing
-        line.style.width = `${Math.random() * 30 + 15}%`;
+        line.style.width = `${Math.random() * 40 + 20}%`;
         line.style.top = `${Math.random() * containerHeight}px`;
         line.style.left = `${Math.random() * containerWidth}px`;
+        
+        // Different animation speeds
+        const duration = 5 + Math.random() * 8;
+        line.style.animationDuration = `${duration}s`;
         line.style.animationDelay = `${Math.random() * 5}s`;
         
+        // Increase opacity
+        line.style.opacity = `${0.5 + Math.random() * 0.5}`;
+        
         container.appendChild(line);
+      }
+    };
+    
+    // Create floating particles
+    const createFloatingParticles = () => {
+      if (!trendingLinesRef.current) return;
+      
+      const container = trendingLinesRef.current;
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
+      
+      // Add some floating particles
+      for (let i = 0; i < 15; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('floating-particle');
+        
+        // Random size
+        const size = Math.random() * 8 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.top = `${Math.random() * containerHeight}px`;
+        particle.style.left = `${Math.random() * containerWidth}px`;
+        
+        // Random color
+        const hue = Math.floor(Math.random() * 60) + 220; // Blue-purple range
+        particle.style.backgroundColor = `hsla(${hue}, 80%, 70%, ${Math.random() * 0.5 + 0.2})`;
+        
+        // Animation
+        particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        container.appendChild(particle);
       }
     };
     
@@ -97,10 +152,14 @@ const Index = () => {
     
     // Initialize
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', createTrendingLines);
+    window.addEventListener('resize', () => {
+      createTrendingLines();
+      createFloatingParticles();
+    });
     
     handleScroll(); // Check on initial load
     createTrendingLines();
+    createFloatingParticles();
     
     // Add slight delay to ensure DOM is fully loaded
     setTimeout(() => {
