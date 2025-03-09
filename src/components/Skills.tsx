@@ -6,30 +6,31 @@ const skillsData = {
     "Python", "R", "SQL", "JavaScript", "Java", "C++", "Scala"
   ],
   frameworks: [
-    "Pandas", "NumPy", "NLTK", "Scikit-learn", "PyTorch", "TensorFlow", "Matplotlib"
+    "Pandas", "NumPy", "NLTK", "Scikit-learn", "PyTorch", "TensorFlow", "Matplotlib", "SpaCy", "Hugging Face", "FastAPI"
   ],
   cloud: [
-    "AWS", "GCP", "Azure", "Lambda", "EC2", "S3", "Redshift", "EMR", "Spark", "Hadoop"
+    "AWS", "GCP", "Azure", "Lambda", "EC2", "S3", "Redshift", "EMR", "Spark", "Hadoop", "Kubernetes", "Docker"
   ],
   databases: [
-    "MongoDB", "PostgreSQL", "Oracle", "Firebase", "RDS", "DynamoDB", "Hive", "Pinecone", "Weaviate"
+    "MongoDB", "PostgreSQL", "Oracle", "Firebase", "RDS", "DynamoDB", "Hive", "Pinecone", "Weaviate", "Elasticsearch"
   ],
   tools: [
-    "Git", "Terraform", "Airflow", "Jenkins", "Docker", "Kubernetes", "CI/CD Pipelines"
+    "Git", "Terraform", "Airflow", "Jenkins", "Docker", "Kubernetes", "CI/CD Pipelines", "MLflow", "Kubeflow", "Ray"
   ],
   visualization: [
-    "Tableau", "Power BI", "Splunk"
+    "Tableau", "Power BI", "Splunk", "D3.js", "Plotly", "Streamlit", "Dash"
   ]
 };
 
 const SkillCard = ({ title, skills }: { title: string; skills: string[] }) => (
-  <div className="neo-card transition-all hover:shadow-lg">
-    <h3 className="text-lg font-medium mb-4 text-primary">{title}</h3>
-    <div className="flex flex-wrap gap-2">
+  <div className="neo-card transition-all hover:shadow-lg group">
+    <h3 className="text-lg font-medium mb-4 text-primary group-hover:gradient-text transition-all duration-300">{title}</h3>
+    <div className="flex flex-wrap gap-2 skill-grid">
       {skills.map((skill, index) => (
         <span 
           key={index} 
-          className="px-3 py-1 bg-white rounded-lg text-sm shadow-sm border border-gray-100"
+          className="skill-tag"
+          style={{ transitionDelay: `${index * 50}ms` }}
         >
           {skill}
         </span>
@@ -46,6 +47,12 @@ const Skills = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          
+          // Add visible class to all skill grids when parent is visible
+          const skillGrids = entry.target.querySelectorAll('.skill-grid');
+          skillGrids.forEach(grid => {
+            grid.classList.add('visible');
+          });
         }
       },
       { threshold: 0.1 }

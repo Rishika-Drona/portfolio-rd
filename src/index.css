@@ -17,7 +17,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 110 38% 50%;
+    --primary: 250 47% 58%;
     --primary-foreground: 355.7 100% 97.3%;
 
     --secondary: 240 4.8% 95.9%;
@@ -26,7 +26,7 @@
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
 
-    --accent: 110 38% 95%;
+    --accent: 250 47% 95%;
     --accent-foreground: 240 5.9% 10%;
 
     --destructive: 0 84.2% 60.2%;
@@ -34,7 +34,7 @@
 
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 142.1 76.2% 36.3%;
+    --ring: 250 47% 58%;
 
     --radius: 1rem;
 
@@ -73,7 +73,7 @@
   }
   
   .neo-card {
-    @apply bg-white shadow-neo rounded-xl p-6;
+    @apply bg-white shadow-neo rounded-xl p-6 hover:shadow-neo-hover transition-all duration-300;
   }
   
   .section-title {
@@ -86,7 +86,7 @@
   }
   
   .tag {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-accent text-primary;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-accent text-primary hover:bg-primary/10 transition-colors;
   }
   
   .timeline-item {
@@ -106,6 +106,30 @@
   .timeline-item:last-child::after {
     @apply hidden;
   }
+
+  .highlight-text {
+    @apply text-primary font-semibold;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg font-medium transition-all hover:bg-primary/90 hover:translate-y-[-2px] hover:shadow-lg active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-gray-100 text-gray-800 rounded-lg font-medium transition-all hover:bg-gray-200 hover:translate-y-[-2px] hover:shadow-md active:translate-y-0;
+  }
+
+  .social-icon {
+    @apply p-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-full transition-all duration-300 hover:rotate-6 transform;
+  }
+
+  .project-card {
+    @apply neo-card transition-all duration-300 hover:shadow-lg hover:translate-y-[-4px] border-l-4 border-transparent hover:border-primary;
+  }
+
+  .skill-tag {
+    @apply px-3 py-1 bg-white rounded-lg text-sm shadow-sm border border-gray-100 hover:bg-primary/5 hover:border-primary/20 transition-all duration-300 cursor-default;
+  }
 }
 
 /* Smooth scrolling animations */
@@ -118,6 +142,46 @@
 .scroll-appear.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Project cards staggered animation */
+.project-grid .project-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.project-grid.visible .project-card:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+.project-grid.visible .project-card:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.project-grid.visible .project-card:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+.project-grid.visible .project-card:nth-child(4) {
+  transition-delay: 0.4s;
+}
+
+.project-grid.visible .project-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Skill tags animation */
+.skill-grid .skill-tag {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 0.3s ease;
+}
+
+.skill-grid.visible .skill-tag {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* Custom scrollbar */
@@ -145,4 +209,33 @@
 
 .section-container {
   @apply py-20 md:py-28;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-gradient-to-r from-purple-600 via-blue-500 to-purple-600 bg-clip-text text-transparent font-bold;
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Additional box shadows */
+@layer utilities {
+  .shadow-neo {
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.03), -10px -10px 20px rgba(255, 255, 255, 0.8);
+  }
+  .shadow-neo-hover {
+    box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.05), -15px -15px 30px rgba(255, 255, 255, 0.9);
+  }
+  .shadow-neo-inset {
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.05), inset -5px -5px 10px rgba(255, 255, 255, 0.8);
+  }
 }

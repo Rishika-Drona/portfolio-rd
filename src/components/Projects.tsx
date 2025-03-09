@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Star } from 'lucide-react';
 
 const projectsData = [
   {
@@ -10,8 +10,9 @@ const projectsData = [
     tags: ["OpenAI", "GPT-4", "Anyscale", "Llama-2", "NLP"],
     links: {
       demo: "#",
-      github: "#"
-    }
+      github: "https://github.com/Rishika-Drona/llm-application"
+    },
+    featured: true
   },
   {
     title: "LLM Index",
@@ -20,8 +21,9 @@ const projectsData = [
     tags: ["Llama Index", "LLMs", "Data Framework", "Python"],
     links: {
       demo: "#",
-      github: "#"
-    }
+      github: "https://github.com/Rishika-Drona/llm-index"
+    },
+    featured: true
   },
   {
     title: "Deep Learning Project",
@@ -30,7 +32,7 @@ const projectsData = [
     tags: ["ResNet", "Bi-LSTM", "Speech Recognition", "PyTorch"],
     links: {
       demo: "#",
-      github: "#"
+      github: "https://github.com/Rishika-Drona/deep-learning-projects"
     }
   },
   {
@@ -40,7 +42,7 @@ const projectsData = [
     tags: ["Random Forest", "XGBoost", "AWS", "Flask", "CloudWatch"],
     links: {
       demo: "#",
-      github: "#"
+      github: "https://github.com/Rishika-Drona/amazon-predictive-model"
     }
   }
 ];
@@ -76,15 +78,22 @@ const Projects = () => {
         
         <div 
           ref={projectsRef} 
-          className="scroll-appear mt-12 grid grid-cols-1 md:grid-cols-2 gap-6"
+          className="project-grid scroll-appear mt-12 grid grid-cols-1 md:grid-cols-2 gap-6"
         >
           {projectsData.map((project, index) => (
             <div 
               key={index} 
-              className="neo-card transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px]"
+              className={`project-card ${project.featured ? 'border-l-4 border-primary' : ''}`}
             >
               <div className="flex justify-between items-start mb-3">
-                <h3 className="text-xl font-semibold text-gray-900">{project.title}</h3>
+                <h3 className="text-xl font-semibold text-gray-900 flex items-center">
+                  {project.title}
+                  {project.featured && (
+                    <span className="ml-2 text-xs bg-primary/10 text-primary px-2 py-1 rounded-full flex items-center">
+                      <Star size={12} className="mr-1" /> Featured
+                    </span>
+                  )}
+                </h3>
                 <span className="text-sm text-gray-600">{project.period}</span>
               </div>
               
@@ -99,6 +108,8 @@ const Projects = () => {
               <div className="flex gap-4">
                 <a 
                   href={project.links.github} 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center text-sm text-gray-600 hover:text-primary transition-colors"
                 >
                   <Github size={16} className="mr-1" />
@@ -114,6 +125,18 @@ const Projects = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="flex justify-center mt-10">
+          <a 
+            href="https://github.com/Rishika-Drona" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="btn-primary"
+          >
+            View All Projects on GitHub
+            <ExternalLink size={16} className="ml-2" />
+          </a>
         </div>
       </div>
     </section>
