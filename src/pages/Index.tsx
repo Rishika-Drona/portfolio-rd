@@ -94,7 +94,7 @@ const Index = () => {
       const containerWidth = container.clientWidth;
       const containerHeight = container.clientHeight;
       
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 70; i++) {
         const line = document.createElement('div');
         line.classList.add('trending-line');
         
@@ -137,7 +137,31 @@ const Index = () => {
         container.appendChild(line);
       }
       
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 20; i++) {
+        const crossLine = document.createElement('div');
+        crossLine.classList.add('trending-line', 'crossing-line');
+        
+        const colors = [
+          'linear-gradient(90deg, rgba(255, 135, 177, 0), rgba(255, 135, 177, 0.7), rgba(255, 135, 177, 0))',
+          'linear-gradient(90deg, rgba(103, 232, 249, 0), rgba(103, 232, 249, 0.7), rgba(103, 232, 249, 0))',
+          'linear-gradient(90deg, rgba(190, 240, 150, 0), rgba(190, 240, 150, 0.7), rgba(190, 240, 150, 0))',
+          'linear-gradient(90deg, rgba(155, 135, 245, 0), rgba(155, 135, 245, 0.7), rgba(155, 135, 245, 0))'
+        ];
+        
+        crossLine.style.background = colors[i % colors.length];
+        crossLine.style.height = '2px';
+        crossLine.style.transform = `rotate(${Math.random() * 180}deg)`;
+        crossLine.style.transformOrigin = 'center center';
+        crossLine.style.width = `${Math.random() * 30 + 70}%`;
+        crossLine.style.top = `${Math.random() * containerHeight}px`;
+        crossLine.style.left = `${Math.random() * containerWidth / 2}px`;
+        crossLine.style.animationDuration = `${10 + Math.random() * 15}s`;
+        crossLine.style.animationDelay = `${Math.random() * 5}s`;
+        
+        container.appendChild(crossLine);
+      }
+      
+      for (let i = 0; i < 60; i++) {
         const particle = document.createElement('div');
         particle.classList.add('floating-particle');
         
@@ -174,7 +198,7 @@ const Index = () => {
         container.appendChild(particle);
       }
       
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 30; i++) {
         const bubble = document.createElement('div');
         bubble.classList.add('bg-bubble');
         
@@ -196,10 +220,21 @@ const Index = () => {
         bubble.style.animationDuration = `${Math.random() * 20 + 15}s`;
         bubble.style.animationDelay = `${Math.random() * 10}s`;
         
+        if (i % 5 === 0) {
+          bubble.style.background = 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), rgba(255, 192, 203, 0.6))';
+          bubble.style.boxShadow = '0 0 20px rgba(255, 192, 203, 0.6)';
+        } else if (i % 5 === 1) {
+          bubble.style.background = 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), rgba(186, 225, 255, 0.6))';
+          bubble.style.boxShadow = '0 0 20px rgba(186, 225, 255, 0.6)';
+        } else if (i % 5 === 2) {
+          bubble.style.background = 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), rgba(216, 191, 255, 0.6))';
+          bubble.style.boxShadow = '0 0 20px rgba(216, 191, 255, 0.6)';
+        }
+        
         container.appendChild(bubble);
       }
       
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 8; i++) {
         const ring = document.createElement('div');
         ring.classList.add('bg-pulse-ring');
         
@@ -219,9 +254,18 @@ const Index = () => {
         } else if (i === 3) {
           ring.style.top = '80%';
           ring.style.left = '30%';
-        } else {
+        } else if (i === 4) {
           ring.style.top = '50%';
           ring.style.left = '50%';
+        } else if (i === 5) {
+          ring.style.top = '25%';
+          ring.style.left = '40%';
+        } else if (i === 6) {
+          ring.style.top = '65%';
+          ring.style.left = '10%';
+        } else {
+          ring.style.top = '15%';
+          ring.style.left = '65%';
         }
         
         const hue = 250 + Math.random() * 40;
@@ -232,8 +276,26 @@ const Index = () => {
         container.appendChild(ring);
       }
       
+      for (let i = 0; i < 10; i++) {
+        const gradientLine = document.createElement('div');
+        gradientLine.classList.add('gradient-line');
+        
+        gradientLine.style.position = 'absolute';
+        gradientLine.style.height = '2px';
+        gradientLine.style.width = `${Math.random() * 30 + 20}%`;
+        gradientLine.style.background = 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent)';
+        gradientLine.style.top = `${Math.random() * containerHeight}px`;
+        gradientLine.style.left = `${Math.random() * containerWidth}px`;
+        gradientLine.style.opacity = '0.6';
+        gradientLine.style.boxShadow = '0 0 8px rgba(255, 255, 255, 0.5)';
+        gradientLine.style.animation = `gradient-line ${Math.random() * 5 + 10}s infinite linear`;
+        gradientLine.style.animationDelay = `${Math.random() * 5}s`;
+        
+        container.appendChild(gradientLine);
+      }
+      
       const constellationPoints = [];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 30; i++) {
         const dot = document.createElement('div');
         dot.classList.add('bg-constellation-dot');
         
@@ -257,7 +319,7 @@ const Index = () => {
           const dy = point2.y - point1.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
-          if (distance < 150) {
+          if (distance < 200) {
             const line = document.createElement('div');
             line.classList.add('bg-constellation-line');
             
@@ -267,7 +329,7 @@ const Index = () => {
             line.style.left = `${point1.x}px`;
             line.style.top = `${point1.y}px`;
             line.style.transform = `rotate(${angle}deg)`;
-            line.style.opacity = `${(1 - distance / 150) * 0.7}`;
+            line.style.opacity = `${(1 - distance / 200) * 0.8}`;
             
             container.appendChild(line);
           }
@@ -533,3 +595,4 @@ const Index = () => {
 };
 
 export default Index;
+

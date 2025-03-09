@@ -201,6 +201,22 @@
     will-change: transform, opacity;
   }
 
+  .crossing-line {
+    transform-origin: center center;
+    opacity: 0.7;
+    z-index: 1;
+  }
+  
+  .gradient-line {
+    position: absolute;
+    height: 2px;
+    opacity: 0.6;
+    transform-style: preserve-3d;
+    transform: translateZ(1px);
+    z-index: 1;
+    will-change: transform, opacity;
+  }
+
   /* Background Visualization Components - Enhanced */
   .bg-heartbeat-line {
     width: 5px;
@@ -487,7 +503,6 @@ div[id="blog"].visible .blog-card {
   100% { transform: scaleY(1); opacity: 1; }
 }
 
-/* New animation keyframes */
 @keyframes bubble-float {
   0%, 100% {
     transform: translate(0, 0) scale(1);
@@ -510,6 +525,21 @@ div[id="blog"].visible .blog-card {
   }
   100% {
     transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes gradient-line {
+  0% {
+    transform: translateX(-100%) scaleX(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(0%) scaleX(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(100%) scaleX(0.5);
     opacity: 0;
   }
 }
