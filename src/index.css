@@ -173,10 +173,10 @@
   
   .trending-line {
     position: absolute;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(155, 135, 245, 0), rgba(155, 135, 245, 0.8), rgba(155, 135, 245, 0));
+    height: 3px;
+    background: linear-gradient(90deg, rgba(155, 135, 245, 0), rgba(155, 135, 245, 0.9), rgba(155, 135, 245, 0));
     animation: moveLine 8s infinite ease-in-out;
-    opacity: 0.5;
+    opacity: 0.7;
     transform-style: preserve-3d;
     transform: translateZ(1px);
     z-index: 1;
@@ -191,58 +191,87 @@
   .floating-particle {
     position: absolute;
     border-radius: 50%;
-    background-color: rgba(155, 135, 245, 0.3);
+    background-color: rgba(155, 135, 245, 0.5);
     animation: floatParticle 15s infinite ease-in-out;
     transform-style: preserve-3d;
     transform: translateZ(1px);
     z-index: 1;
-    box-shadow: 0 0 10px 2px rgba(155, 135, 245, 0.2);
+    box-shadow: 0 0 15px 4px rgba(155, 135, 245, 0.3);
     transition: transform 0.8s ease-out;
     will-change: transform, opacity;
   }
 
-  .parallax-card {
-    transform-style: preserve-3d;
-    transition: transform 0.3s ease;
-  }
-  
-  .card-3d-content {
-    transform-style: preserve-3d;
-  }
-
-  /* Background Visualization Components */
+  /* Background Visualization Components - Enhanced */
   .bg-heartbeat-line {
-    width: 4px;
-    background-color: rgba(239, 68, 68, 0.5);
-    margin: 0 1px;
-    border-radius: 2px;
+    width: 5px;
+    background-color: rgba(239, 68, 68, 0.8);
+    margin: 0 2px;
+    border-radius: 3px;
     animation: heartbeat 2s infinite ease-in-out;
     transform-origin: bottom;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
   }
 
   .bg-barchart-bar {
-    width: 5px;
+    width: 7px;
     border-radius: 4px 4px 0 0;
-    background-color: rgba(59, 130, 246, 0.5);
+    background-color: rgba(59, 130, 246, 0.8);
     animation: bar-rise 1.5s ease-out forwards;
     transform-origin: bottom;
     opacity: 0;
-    margin: 0 2px;
+    margin: 0 3px;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
   }
 
   .bg-audiowave-bar {
-    width: 3px;
-    height: 15px;
-    background-color: rgba(139, 92, 246, 0.5);
-    border-radius: 2px;
+    width: 4px;
+    height: 20px;
+    background-color: rgba(139, 92, 246, 0.8);
+    border-radius: 3px;
     animation: audio-wave infinite ease-in-out;
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
   }
 
   .bg-histogram-bar {
-    border-radius: 2px 2px 0 0;
+    border-radius: 3px 3px 0 0;
     animation: histogram-appear 0.8s ease-out forwards;
     opacity: 0;
     transform-origin: bottom;
+    box-shadow: 0 0 8px rgba(255, 120, 0, 0.4);
+  }
+  
+  /* New visualization components */
+  .bg-bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), rgba(103, 232, 249, 0.6));
+    box-shadow: 0 0 20px rgba(103, 232, 249, 0.6);
+    animation: bubble-float 15s infinite ease-in-out;
+    opacity: 0.7;
+  }
+  
+  .bg-constellation-dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
+  }
+  
+  .bg-constellation-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    transform-origin: left center;
+  }
+  
+  .bg-pulse-ring {
+    position: absolute;
+    border: 2px solid rgba(214, 188, 250, 0.5);
+    border-radius: 50%;
+    animation: pulse-ring 4s infinite ease-out;
+    box-shadow: 0 0 30px rgba(214, 188, 250, 0.3);
   }
 }
 
@@ -382,18 +411,20 @@ div[id="blog"].visible .blog-card {
 /* Enhanced Animations */
 @keyframes float {
   0% { transform: translateY(0px) translateZ(0px) rotate(0deg); }
-  50% { transform: translateY(-10px) translateZ(5px) rotate(5deg); }
+  50% { transform: translateY(-15px) translateZ(8px) rotate(7deg); }
   100% { transform: translateY(0px) translateZ(0px) rotate(0deg); }
 }
 
 @keyframes moveLine {
-  0% { transform: translateX(-150%) translateZ(1px); }
-  100% { transform: translateX(150%) translateZ(1px); }
+  0% { transform: translateX(-150%) translateZ(1px); width: 30%; }
+  50% { width: 50%; }
+  100% { transform: translateX(150%) translateZ(1px); width: 30%; }
 }
 
 @keyframes moveLineReverse {
-  0% { transform: translateX(150%) translateZ(1px); }
-  100% { transform: translateX(-150%) translateZ(1px); }
+  0% { transform: translateX(150%) translateZ(1px); width: 30%; }
+  50% { width: 50%; }
+  100% { transform: translateX(-150%) translateZ(1px); width: 30%; }
 }
 
 @keyframes floatParticle {
@@ -406,18 +437,18 @@ div[id="blog"].visible .blog-card {
   }
   50% { 
     transform: translate(
-      calc(30px * var(--direction, 1)), 
-      calc(-50px * var(--float-factor, 1))
-    ) translateZ(3px) scale(1.2); 
+      calc(40px * var(--direction, 1)), 
+      calc(-60px * var(--float-factor, 1))
+    ) translateZ(5px) scale(1.4); 
   }
   80% { 
     opacity: 1; 
   }
   100% { 
     transform: translate(
-      calc(60px * var(--direction, 1)), 
-      calc(-100px * var(--float-factor, 1))
-    ) translateZ(1px) scale(0.8); 
+      calc(80px * var(--direction, 1)), 
+      calc(-120px * var(--float-factor, 1))
+    ) translateZ(1px) scale(0.7); 
     opacity: 0;
   }
 }
@@ -429,80 +460,15 @@ div[id="blog"].visible .blog-card {
   }
   50% { 
     opacity: 1;
-    filter: blur(8px);
+    filter: blur(10px);
   }
 }
 
-@keyframes bounce-subtle {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
-}
-
-.animate-float {
-  animation: float 5s ease-in-out infinite;
-  transform-style: preserve-3d;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 4s ease-in-out infinite;
-}
-
-.animate-bounce-subtle {
-  animation: bounce-subtle 2s ease-in-out infinite;
-}
-
-/* Perspective Tilt */
-.tilt-card {
-  transform-style: preserve-3d;
-  transform: perspective(1000px);
-  transition: transform 0.3s ease;
-  will-change: transform;
-}
-
-.tilt-card:hover {
-  transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
-}
-
-/* Card glare effect */
-.card-glare {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-/* Additional box shadows */
-@layer utilities {
-  .shadow-neo {
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.03), -10px -10px 20px rgba(255, 255, 255, 0.8);
-  }
-  .shadow-neo-hover {
-    box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.05), -15px -15px 30px rgba(255, 255, 255, 0.9);
-  }
-  .shadow-neo-inset {
-    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.05), inset -5px -5px 10px rgba(255, 255, 255, 0.8);
-  }
-  .shadow-3d {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), 0 15px 35px rgba(0, 0, 0, 0.05);
-  }
-  .shadow-3d-hover {
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 20px 45px rgba(0, 0, 0, 0.1);
-  }
-}
-
-/* Background Visualization Animations */
 @keyframes heartbeat {
   0%, 100% { transform: scaleY(0.3); }
-  10% { transform: scaleY(1.2); }
+  10% { transform: scaleY(1.5); }
   20% { transform: scaleY(0.4); }
-  30% { transform: scaleY(0.8); }
+  30% { transform: scaleY(1.2); }
   40%, 60% { transform: scaleY(0.3); }
 }
 
@@ -512,11 +478,38 @@ div[id="blog"].visible .blog-card {
 }
 
 @keyframes audio-wave {
-  0%, 100% { transform: scaleY(0.3); }
-  50% { transform: scaleY(1); }
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1.2); }
 }
 
 @keyframes histogram-appear {
   0% { transform: scaleY(0); opacity: 0; }
   100% { transform: scaleY(1); opacity: 1; }
+}
+
+/* New animation keyframes */
+@keyframes bubble-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(var(--x-offset, 20px), var(--y-offset, -30px)) scale(1.1);
+  }
+  50% {
+    transform: translate(var(--x-offset2, 40px), var(--y-offset2, -60px)) scale(1.2);
+  }
+  75% {
+    transform: translate(var(--x-offset3, 20px), var(--y-offset3, -40px)) scale(0.9);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
 }

@@ -39,6 +39,15 @@ const Index = () => {
           
           (particle as HTMLElement).style.transform = `translate(${xOffset}px, ${yOffset}px) translateZ(2px) scale(${1 + speed})`;
         });
+        
+        const bubbles = trendingLinesRef.current.querySelectorAll('.bg-bubble');
+        bubbles.forEach((bubble, index) => {
+          const speed = 0.03 + (index % 4) * 0.01;
+          const xOffset = (e.clientX - window.innerWidth / 2) * speed;
+          const yOffset = (e.clientY - window.innerHeight / 2) * speed;
+          
+          (bubble as HTMLElement).style.transform = `translate(${xOffset}px, ${yOffset}px) translateZ(3px) scale(${1 + speed/2})`;
+        });
       }
     };
 
@@ -85,33 +94,39 @@ const Index = () => {
       const containerWidth = container.clientWidth;
       const containerHeight = container.clientHeight;
       
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 40; i++) {
         const line = document.createElement('div');
         line.classList.add('trending-line');
         
-        if (i % 6 === 0) {
-          line.style.background = 'linear-gradient(90deg, rgba(155, 135, 245, 0), rgba(155, 135, 245, 0.8), rgba(155, 135, 245, 0))';
+        if (i % 8 === 0) {
+          line.style.background = 'linear-gradient(90deg, rgba(155, 135, 245, 0), rgba(155, 135, 245, 0.9), rgba(155, 135, 245, 0))';
+          line.style.height = '4px';
+        } else if (i % 8 === 1) {
+          line.style.background = 'linear-gradient(90deg, rgba(255, 135, 177, 0), rgba(255, 135, 177, 0.8), rgba(255, 135, 177, 0))';
           line.style.height = '3px';
-        } else if (i % 6 === 1) {
-          line.style.background = 'linear-gradient(90deg, rgba(255, 135, 177, 0), rgba(255, 135, 177, 0.7), rgba(255, 135, 177, 0))';
-          line.style.height = '2px';
-        } else if (i % 6 === 2) {
-          line.style.background = 'linear-gradient(90deg, rgba(135, 206, 255, 0), rgba(135, 206, 255, 0.7), rgba(135, 206, 255, 0))';
-          line.style.height = '2.5px';
-        } else if (i % 6 === 3) {
-          line.style.background = 'linear-gradient(90deg, rgba(190, 240, 150, 0), rgba(190, 240, 150, 0.7), rgba(190, 240, 150, 0))';
-          line.style.height = '2px';
-        } else if (i % 6 === 4) {
-          line.style.background = 'linear-gradient(90deg, rgba(240, 180, 130, 0), rgba(240, 180, 130, 0.7), rgba(240, 180, 130, 0))';
-          line.style.height = '2.5px';
+        } else if (i % 8 === 2) {
+          line.style.background = 'linear-gradient(90deg, rgba(135, 206, 255, 0), rgba(135, 206, 255, 0.8), rgba(135, 206, 255, 0))';
+          line.style.height = '3.5px';
+        } else if (i % 8 === 3) {
+          line.style.background = 'linear-gradient(90deg, rgba(190, 240, 150, 0), rgba(190, 240, 150, 0.8), rgba(190, 240, 150, 0))';
+          line.style.height = '3px';
+        } else if (i % 8 === 4) {
+          line.style.background = 'linear-gradient(90deg, rgba(240, 180, 130, 0), rgba(240, 180, 130, 0.8), rgba(240, 180, 130, 0))';
+          line.style.height = '3.5px';
+        } else if (i % 8 === 5) {
+          line.style.background = 'linear-gradient(90deg, rgba(180, 130, 240, 0), rgba(180, 130, 240, 0.8), rgba(180, 130, 240, 0))';
+          line.style.height = '3px';
+        } else if (i % 8 === 6) {
+          line.style.background = 'linear-gradient(90deg, rgba(103, 232, 249, 0), rgba(103, 232, 249, 0.8), rgba(103, 232, 249, 0))';
+          line.style.height = '4px';
         } else {
-          line.style.background = 'linear-gradient(90deg, rgba(180, 130, 240, 0), rgba(180, 130, 240, 0.7), rgba(180, 130, 240, 0))';
-          line.style.height = '2px';
+          line.style.background = 'linear-gradient(90deg, rgba(249, 168, 212, 0), rgba(249, 168, 212, 0.8), rgba(249, 168, 212, 0))';
+          line.style.height = '3px';
         }
         
         if (i % 2 === 0) line.classList.add('reverse');
         
-        line.style.width = `${Math.random() * 50 + 30}%`;
+        line.style.width = `${Math.random() * 60 + 40}%`;
         line.style.top = `${Math.random() * containerHeight}px`;
         line.style.left = `${Math.random() * containerWidth}px`;
         
@@ -122,11 +137,11 @@ const Index = () => {
         container.appendChild(line);
       }
       
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 40; i++) {
         const particle = document.createElement('div');
         particle.classList.add('floating-particle');
         
-        const size = Math.random() * 10 + 2;
+        const size = Math.random() * 15 + 3;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
         
@@ -134,11 +149,13 @@ const Index = () => {
         particle.style.left = `${Math.random() * containerWidth}px`;
         
         const colorSchemes = [
-          [220, 90, 75], // Blue-purple
-          [280, 90, 80], // Purple
-          [170, 90, 80], // Teal
-          [330, 90, 80], // Pink
-          [45, 90, 80],  // Gold
+          [220, 95, 75], // Blue-purple
+          [280, 95, 80], // Purple
+          [170, 95, 80], // Teal
+          [330, 95, 80], // Pink
+          [45, 95, 80],  // Gold
+          [190, 95, 80], // Cyan
+          [0, 95, 75],   // Red
         ];
         
         const scheme = colorSchemes[i % colorSchemes.length];
@@ -146,14 +163,115 @@ const Index = () => {
         const saturation = scheme[1] + Math.floor(Math.random() * 10) - 5;
         const lightness = scheme[2] + Math.floor(Math.random() * 10) - 5;
         
-        particle.style.backgroundColor = `hsla(${hue}, ${saturation}%, ${lightness}%, ${Math.random() * 0.4 + 0.2})`;
-        particle.style.boxShadow = `0 0 ${Math.floor(size * 2)}px ${Math.floor(size / 2)}px hsla(${hue}, ${saturation}%, ${lightness}%, 0.3)`;
+        particle.style.backgroundColor = `hsla(${hue}, ${saturation}%, ${lightness}%, ${Math.random() * 0.5 + 0.3})`;
+        particle.style.boxShadow = `0 0 ${Math.floor(size * 3)}px ${Math.floor(size / 1.5)}px hsla(${hue}, ${saturation}%, ${lightness}%, 0.4)`;
         
         particle.style.animationDuration = `${Math.random() * 15 + 8}s`;
         particle.style.animationDelay = `${Math.random() * 5}s`;
         particle.style.setProperty('--direction', Math.random() > 0.5 ? '1' : '-1');
+        particle.style.setProperty('--float-factor', (Math.random() * 1.5 + 0.5).toString());
         
         container.appendChild(particle);
+      }
+      
+      for (let i = 0; i < 15; i++) {
+        const bubble = document.createElement('div');
+        bubble.classList.add('bg-bubble');
+        
+        const size = Math.random() * 100 + 30;
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+        
+        bubble.style.top = `${Math.random() * containerHeight}px`;
+        bubble.style.left = `${Math.random() * containerWidth}px`;
+        
+        const hue = Math.random() * 60 + 180; // Cyan to blue range
+        bubble.style.setProperty('--x-offset', `${(Math.random() * 100 - 50)}px`);
+        bubble.style.setProperty('--y-offset', `${(Math.random() * -100 - 20)}px`);
+        bubble.style.setProperty('--x-offset2', `${(Math.random() * 150 - 75)}px`);
+        bubble.style.setProperty('--y-offset2', `${(Math.random() * -150 - 30)}px`);
+        bubble.style.setProperty('--x-offset3', `${(Math.random() * 80 - 40)}px`);
+        bubble.style.setProperty('--y-offset3', `${(Math.random() * -80 - 10)}px`);
+        
+        bubble.style.animationDuration = `${Math.random() * 20 + 15}s`;
+        bubble.style.animationDelay = `${Math.random() * 10}s`;
+        
+        container.appendChild(bubble);
+      }
+      
+      for (let i = 0; i < 5; i++) {
+        const ring = document.createElement('div');
+        ring.classList.add('bg-pulse-ring');
+        
+        const size = 50 + i * 20;
+        ring.style.width = `${size}px`;
+        ring.style.height = `${size}px`;
+        
+        if (i === 0) {
+          ring.style.top = '20%';
+          ring.style.left = '15%';
+        } else if (i === 1) {
+          ring.style.top = '70%';
+          ring.style.left = '80%';
+        } else if (i === 2) {
+          ring.style.top = '30%';
+          ring.style.left = '75%';
+        } else if (i === 3) {
+          ring.style.top = '80%';
+          ring.style.left = '30%';
+        } else {
+          ring.style.top = '50%';
+          ring.style.left = '50%';
+        }
+        
+        const hue = 250 + Math.random() * 40;
+        ring.style.borderColor = `hsla(${hue}, 90%, 75%, 0.6)`;
+        ring.style.animationDuration = `${4 + i * 0.8}s`;
+        ring.style.animationDelay = `${i * 0.5}s`;
+        
+        container.appendChild(ring);
+      }
+      
+      const constellationPoints = [];
+      for (let i = 0; i < 20; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('bg-constellation-dot');
+        
+        const x = Math.random() * containerWidth;
+        const y = Math.random() * containerHeight;
+        
+        dot.style.left = `${x}px`;
+        dot.style.top = `${y}px`;
+        
+        constellationPoints.push({ x, y, element: dot });
+        container.appendChild(dot);
+      }
+      
+      for (let i = 0; i < constellationPoints.length; i++) {
+        const point1 = constellationPoints[i];
+        
+        for (let j = i + 1; j < constellationPoints.length; j++) {
+          const point2 = constellationPoints[j];
+          
+          const dx = point2.x - point1.x;
+          const dy = point2.y - point1.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 150) {
+            const line = document.createElement('div');
+            line.classList.add('bg-constellation-line');
+            
+            const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+            
+            line.style.width = `${distance}px`;
+            line.style.left = `${point1.x}px`;
+            line.style.top = `${point1.y}px`;
+            line.style.transform = `rotate(${angle}deg)`;
+            line.style.opacity = `${(1 - distance / 150) * 0.7}`;
+            
+            container.appendChild(line);
+          }
+        }
       }
       
       const heartbeatContainer = document.createElement('div');
@@ -165,7 +283,7 @@ const Index = () => {
       heartbeatContainer.style.height = '100px';
       heartbeatContainer.style.display = 'flex';
       heartbeatContainer.style.alignItems = 'center';
-      heartbeatContainer.style.opacity = '0.3';
+      heartbeatContainer.style.opacity = '0.5';
       heartbeatContainer.style.transform = 'rotate(-10deg)';
       
       for (let i = 0; i < 30; i++) {
