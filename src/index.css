@@ -52,12 +52,28 @@
     box-sizing: border-box;
   }
 
+  html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
     perspective: 1000px;
     position: relative;
     overflow-x: hidden;
+    background-color: transparent !important;
+    will-change: background-position;
+    transition: background-position 0.5s ease-out;
+  }
+
+  #root {
+    min-height: 100%;
+    position: relative;
+    z-index: 1;
   }
 
   html {
@@ -305,15 +321,17 @@
     z-index: -1;
   }
 
-  .gradient-overlay {
+  #background-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: radial-gradient(circle at center, transparent 20%, rgba(255, 255, 255, 0.9) 100%);
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.9) 100%);
     pointer-events: none;
-    z-index: -1;
+    transition: transform 0.3s ease-out;
+    will-change: transform;
   }
 
   .interactive-network-dot {
@@ -486,7 +504,7 @@ div[id="blog"].visible .blog-card {
 }
 
 @keyframes floatParticle {
-  0% { 
+  0%, 100% { 
     transform: translate(0, 0) translateZ(1px) scale(1); 
     opacity: 0;
   }

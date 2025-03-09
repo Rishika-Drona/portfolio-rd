@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -91,35 +90,21 @@ const Index = () => {
         trendingLinesRef.current.removeChild(trendingLinesRef.current.firstChild);
       }
       
-      // Create the network background with the image
-      const networkBg = document.createElement('div');
-      networkBg.classList.add('network-background');
-      networkBg.style.position = 'fixed';
-      networkBg.style.inset = '0';
-      networkBg.style.backgroundImage = "url('/lovable-uploads/b4cb39b3-6ced-4906-b330-07d751e86047.png')";
-      networkBg.style.backgroundSize = 'cover';
-      networkBg.style.backgroundPosition = 'center';
-      networkBg.style.backgroundRepeat = 'no-repeat';
-      networkBg.style.opacity = '0.4';
-      networkBg.style.zIndex = '0';
-      networkBg.style.transform = 'scale(1.05)';
-      networkBg.style.transition = 'transform 2s ease-out, opacity 2s ease-out';
+      document.body.style.backgroundImage = "url('/lovable-uploads/b4cb39b3-6ced-4906-b330-07d751e86047.png')";
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundPosition = 'center';
+      document.body.style.backgroundRepeat = 'no-repeat';
+      document.body.style.backgroundAttachment = 'fixed';
       
-      const gradientOverlay = document.createElement('div');
-      gradientOverlay.classList.add('gradient-overlay');
-      gradientOverlay.style.position = 'fixed';
-      gradientOverlay.style.inset = '0';
-      gradientOverlay.style.background = 'radial-gradient(circle at center, transparent 20%, white 100%)';
-      gradientOverlay.style.zIndex = '1';
-      gradientOverlay.style.pointerEvents = 'none';
+      const backgroundOverlay = document.createElement('div');
+      backgroundOverlay.id = 'background-overlay';
+      backgroundOverlay.style.position = 'fixed';
+      backgroundOverlay.style.inset = '0';
+      backgroundOverlay.style.background = 'radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.95) 100%)';
+      backgroundOverlay.style.zIndex = '-1';
+      backgroundOverlay.style.pointerEvents = 'none';
       
-      document.body.insertBefore(networkBg, document.body.firstChild);
-      document.body.insertBefore(gradientOverlay, document.body.firstChild);
-      
-      setTimeout(() => {
-        networkBg.style.transform = 'scale(1)';
-        networkBg.style.opacity = '0.7';
-      }, 300);
+      document.body.insertBefore(backgroundOverlay, document.body.firstChild);
       
       const container = trendingLinesRef.current;
       const containerWidth = container.clientWidth;
@@ -476,11 +461,15 @@ const Index = () => {
       container.appendChild(audioWaveContainer);
       
       document.addEventListener('mousemove', (e) => {
-        if (networkBg) {
-          const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-          const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-          networkBg.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+        const backgroundOverlay = document.getElementById('background-overlay');
+        if (backgroundOverlay) {
+          const moveX = (e.clientX - window.innerWidth / 2) * 0.005;
+          const moveY = (e.clientY - window.innerHeight / 2) * 0.005;
+          backgroundOverlay.style.transform = `translate(${moveX}px, ${moveY}px)`;
         }
+        
+        document.body.style.backgroundPositionX = `calc(50% + ${(e.clientX - window.innerWidth / 2) * 0.01}px)`;
+        document.body.style.backgroundPositionY = `calc(50% + ${(e.clientY - window.innerHeight / 2) * 0.01}px)`;
       });
       
       for (let i = 0; i < 15; i++) {
@@ -598,11 +587,10 @@ const Index = () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', createBackgroundVisualizations);
-      // Clean up the background elements when component unmounts
-      const networkBg = document.querySelector('.network-background');
-      const gradientOverlay = document.querySelector('.gradient-overlay');
-      if (networkBg) document.body.removeChild(networkBg);
-      if (gradientOverlay) document.body.removeChild(gradientOverlay);
+      
+      document.body.style.backgroundImage = '';
+      const backgroundOverlay = document.getElementById('background-overlay');
+      if (backgroundOverlay) document.body.removeChild(backgroundOverlay);
     };
   }, []);
   
@@ -614,7 +602,7 @@ const Index = () => {
   };
   
   return (
-    <div className="min-h-screen bg-transparent overflow-x-hidden" style={{ perspective: '1000px' }}>
+    <div className="min-h-screen bg-transparent overflow-x-hidden relative z-10" style={{ perspective: '1000px' }}>
       <Navbar />
       
       <div 
