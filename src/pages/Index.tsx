@@ -18,6 +18,31 @@ const Index = () => {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
+    document.body.style.backgroundImage = "url('/lovable-uploads/3e140b61-d18d-429e-9b3a-eb7e36c09186.png')";
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundAttachment = 'fixed';
+    
+    const existingOverlay = document.getElementById('background-overlay');
+    if (existingOverlay) {
+      document.body.removeChild(existingOverlay);
+    }
+    
+    const overlay = document.createElement('div');
+    overlay.id = 'background-overlay';
+    overlay.style.position = 'fixed';
+    overlay.style.inset = '0';
+    overlay.style.background = 'radial-gradient(circle at center, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 100%)';
+    overlay.style.zIndex = '0';
+    overlay.style.pointerEvents = 'none';
+    
+    if (document.body.firstChild) {
+      document.body.insertBefore(overlay, document.body.firstChild);
+    } else {
+      document.body.appendChild(overlay);
+    }
+    
     const handleMouseMove = (e: MouseEvent) => {
       setCursorPos({ x: e.clientX, y: e.clientY });
       
@@ -309,7 +334,7 @@ const Index = () => {
         gradientLine.style.left = `${Math.random() * containerWidth}px`;
         gradientLine.style.opacity = '0.6';
         gradientLine.style.boxShadow = '0 0 8px rgba(255, 255, 255, 0.5)';
-        gradientLine.style.animation = `gradient-line ${Math.random() * 5 + 10}s infinite linear`;
+        gradientLine.style.animation = `gradient-line ${Math.random() * 5 + 10}s infinite linear';
         gradientLine.style.animationDelay = `${Math.random() * 5}s`;
         
         container.appendChild(gradientLine);
@@ -593,7 +618,6 @@ const Index = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', createBackgroundVisualizations);
       
-      document.body.style.backgroundImage = '';
       const backgroundOverlay = document.getElementById('background-overlay');
       if (backgroundOverlay) document.body.removeChild(backgroundOverlay);
     };
@@ -607,12 +631,12 @@ const Index = () => {
   };
   
   return (
-    <div className="min-h-screen bg-transparent overflow-x-hidden relative z-10" style={{ perspective: '1000px' }}>
+    <div className="min-h-screen overflow-x-hidden relative z-10" style={{ perspective: '1000px' }}>
       <Navbar />
       
       <div 
         ref={trendingLinesRef} 
-        className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+        className="fixed inset-0 pointer-events-none z-1 overflow-hidden"
         aria-hidden="true"
       />
       

@@ -66,7 +66,7 @@
     perspective: 1000px;
     position: relative;
     overflow-x: hidden;
-    background-color: transparent; 
+    background-color: #ffffff; /* Fallback color */
     will-change: background-position;
     transition: background-position 0.5s ease-out;
   }
@@ -92,11 +92,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 0;
-  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.7) 100%);
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 100%);
   pointer-events: none;
   transition: transform 0.3s ease-out;
   will-change: transform;
+  z-index: 0;
 }
 
 @layer components {
