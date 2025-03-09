@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -115,7 +116,7 @@ const Index = () => {
         trendingLinesRef.current.removeChild(trendingLinesRef.current.firstChild);
       }
       
-      document.body.style.backgroundImage = "url('/lovable-uploads/b4cb39b3-6ced-4906-b330-07d751e86047.png')";
+      document.body.style.backgroundImage = "url('/lovable-uploads/3e140b61-d18d-429e-9b3a-eb7e36c09186.png')";
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundPosition = 'center';
       document.body.style.backgroundRepeat = 'no-repeat';
@@ -334,7 +335,7 @@ const Index = () => {
         gradientLine.style.left = `${Math.random() * containerWidth}px`;
         gradientLine.style.opacity = '0.6';
         gradientLine.style.boxShadow = '0 0 8px rgba(255, 255, 255, 0.5)';
-        gradientLine.style.animation = `gradient-line ${Math.random() * 5 + 10}s infinite linear';
+        gradientLine.style.animation = `gradient-line ${Math.random() * 5 + 10}s infinite linear`;
         gradientLine.style.animationDelay = `${Math.random() * 5}s`;
         
         container.appendChild(gradientLine);
