@@ -44,7 +44,7 @@ const Index = () => {
         bubbles.forEach((bubble, index) => {
           const speed = 0.03 + (index % 4) * 0.01;
           const xOffset = (e.clientX - window.innerWidth / 2) * speed;
-          const yOffset = (e.clientY - window.innerHeight / 2) * speed;
+          const yOffset = (e.clientY - window.innerHeight /2) * speed;
           
           (bubble as HTMLElement).style.transform = `translate(${xOffset}px, ${yOffset}px) translateZ(3px) scale(${1 + speed/2})`;
         });
@@ -89,6 +89,34 @@ const Index = () => {
       while (trendingLinesRef.current.firstChild) {
         trendingLinesRef.current.removeChild(trendingLinesRef.current.firstChild);
       }
+      
+      const networkBg = document.createElement('div');
+      networkBg.classList.add('network-background');
+      networkBg.style.position = 'absolute';
+      networkBg.style.inset = '0';
+      networkBg.style.backgroundImage = "url('/lovable-uploads/b4cb39b3-6ced-4906-b330-07d751e86047.png')";
+      networkBg.style.backgroundSize = 'cover';
+      networkBg.style.backgroundPosition = 'center';
+      networkBg.style.opacity = '0.4';
+      networkBg.style.zIndex = '0';
+      networkBg.style.transform = 'scale(1.05)';
+      networkBg.style.transition = 'transform 2s ease-out, opacity 2s ease-out';
+      
+      const gradientOverlay = document.createElement('div');
+      gradientOverlay.classList.add('gradient-overlay');
+      gradientOverlay.style.position = 'absolute';
+      gradientOverlay.style.inset = '0';
+      gradientOverlay.style.background = 'radial-gradient(circle at center, transparent 20%, white 100%)';
+      gradientOverlay.style.zIndex = '1';
+      gradientOverlay.style.pointerEvents = 'none';
+      
+      trendingLinesRef.current.appendChild(networkBg);
+      trendingLinesRef.current.appendChild(gradientOverlay);
+      
+      setTimeout(() => {
+        networkBg.style.transform = 'scale(1)';
+        networkBg.style.opacity = '0.7';
+      }, 300);
       
       const container = trendingLinesRef.current;
       const containerWidth = container.clientWidth;
@@ -443,6 +471,49 @@ const Index = () => {
       }
       
       container.appendChild(audioWaveContainer);
+      
+      document.addEventListener('mousemove', (e) => {
+        if (networkBg) {
+          const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+          const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+          networkBg.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+        }
+      });
+      
+      for (let i = 0; i < 15; i++) {
+        const interactiveDot = document.createElement('div');
+        interactiveDot.classList.add('interactive-network-dot');
+        
+        const size = Math.random() * 8 + 4;
+        interactiveDot.style.width = `${size}px`;
+        interactiveDot.style.height = `${size}px`;
+        
+        interactiveDot.style.position = 'absolute';
+        interactiveDot.style.borderRadius = '50%';
+        interactiveDot.style.backgroundColor = 'rgba(65, 145, 255, 0.7)';
+        interactiveDot.style.boxShadow = '0 0 15px 5px rgba(65, 145, 255, 0.3)';
+        interactiveDot.style.top = `${Math.random() * containerHeight}px`;
+        interactiveDot.style.left = `${Math.random() * containerWidth}px`;
+        interactiveDot.style.zIndex = '2';
+        interactiveDot.style.transition = 'transform 0.5s ease-out';
+        
+        container.appendChild(interactiveDot);
+        
+        const pulse = document.createElement('div');
+        pulse.classList.add('network-dot-pulse');
+        pulse.style.position = 'absolute';
+        pulse.style.width = '100%';
+        pulse.style.height = '100%';
+        pulse.style.borderRadius = '50%';
+        pulse.style.backgroundColor = 'transparent';
+        pulse.style.border = '2px solid rgba(65, 145, 255, 0.5)';
+        pulse.style.animation = `pulse-ring ${2 + Math.random() * 2}s infinite ease-out`;
+        pulse.style.animationDelay = `${Math.random() * 2}s`;
+        pulse.style.transform = 'scale(1)';
+        pulse.style.opacity = '1';
+        
+        interactiveDot.appendChild(pulse);
+      }
     };
     
     const initTiltEffect = () => {
@@ -595,4 +666,3 @@ const Index = () => {
 };
 
 export default Index;
-

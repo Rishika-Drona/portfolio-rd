@@ -289,6 +289,29 @@
     animation: pulse-ring 4s infinite ease-out;
     box-shadow: 0 0 30px rgba(214, 188, 250, 0.3);
   }
+
+  .network-background {
+    background-blend-mode: soft-light;
+    filter: saturate(1.2) hue-rotate(5deg);
+    will-change: transform;
+    transform-style: preserve-3d;
+  }
+
+  .interactive-network-dot {
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: network-dot-float 8s infinite ease-in-out;
+    will-change: transform;
+  }
+
+  .interactive-network-dot:nth-child(even) {
+    animation-duration: 12s;
+    animation-delay: 2s;
+  }
+
+  .network-dot-pulse {
+    will-change: transform, opacity;
+  }
 }
 
 @layer utilities {
@@ -541,5 +564,21 @@ div[id="blog"].visible .blog-card {
   100% {
     transform: translateX(100%) scaleX(0.5);
     opacity: 0;
+  }
+}
+
+/* New animation for network dots */
+@keyframes network-dot-float {
+  0%, 100% {
+    transform: translate(0, 0) translateZ(2px);
+  }
+  25% {
+    transform: translate(15px, -15px) translateZ(4px);
+  }
+  50% {
+    transform: translate(30px, 0px) translateZ(6px);
+  }
+  75% {
+    transform: translate(15px, 15px) translateZ(4px);
   }
 }
