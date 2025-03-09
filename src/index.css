@@ -56,6 +56,8 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
     perspective: 1000px;
+    position: relative;
+    overflow-x: hidden;
   }
 
   html {
@@ -295,6 +297,23 @@
     filter: saturate(1.2) hue-rotate(5deg);
     will-change: transform;
     transform-style: preserve-3d;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  .gradient-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, transparent 20%, rgba(255, 255, 255, 0.9) 100%);
+    pointer-events: none;
+    z-index: -1;
   }
 
   .interactive-network-dot {
@@ -582,3 +601,4 @@ div[id="blog"].visible .blog-card {
     transform: translate(15px, 15px) translateZ(4px);
   }
 }
+

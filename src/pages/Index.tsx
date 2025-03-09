@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -90,13 +91,15 @@ const Index = () => {
         trendingLinesRef.current.removeChild(trendingLinesRef.current.firstChild);
       }
       
+      // Create the network background with the image
       const networkBg = document.createElement('div');
       networkBg.classList.add('network-background');
-      networkBg.style.position = 'absolute';
+      networkBg.style.position = 'fixed';
       networkBg.style.inset = '0';
       networkBg.style.backgroundImage = "url('/lovable-uploads/b4cb39b3-6ced-4906-b330-07d751e86047.png')";
       networkBg.style.backgroundSize = 'cover';
       networkBg.style.backgroundPosition = 'center';
+      networkBg.style.backgroundRepeat = 'no-repeat';
       networkBg.style.opacity = '0.4';
       networkBg.style.zIndex = '0';
       networkBg.style.transform = 'scale(1.05)';
@@ -104,14 +107,14 @@ const Index = () => {
       
       const gradientOverlay = document.createElement('div');
       gradientOverlay.classList.add('gradient-overlay');
-      gradientOverlay.style.position = 'absolute';
+      gradientOverlay.style.position = 'fixed';
       gradientOverlay.style.inset = '0';
       gradientOverlay.style.background = 'radial-gradient(circle at center, transparent 20%, white 100%)';
       gradientOverlay.style.zIndex = '1';
       gradientOverlay.style.pointerEvents = 'none';
       
-      trendingLinesRef.current.appendChild(networkBg);
-      trendingLinesRef.current.appendChild(gradientOverlay);
+      document.body.insertBefore(networkBg, document.body.firstChild);
+      document.body.insertBefore(gradientOverlay, document.body.firstChild);
       
       setTimeout(() => {
         networkBg.style.transform = 'scale(1)';
@@ -595,6 +598,11 @@ const Index = () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', createBackgroundVisualizations);
+      // Clean up the background elements when component unmounts
+      const networkBg = document.querySelector('.network-background');
+      const gradientOverlay = document.querySelector('.gradient-overlay');
+      if (networkBg) document.body.removeChild(networkBg);
+      if (gradientOverlay) document.body.removeChild(gradientOverlay);
     };
   }, []);
   
@@ -606,7 +614,7 @@ const Index = () => {
   };
   
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden" style={{ perspective: '1000px' }}>
+    <div className="min-h-screen bg-transparent overflow-x-hidden" style={{ perspective: '1000px' }}>
       <Navbar />
       
       <div 
