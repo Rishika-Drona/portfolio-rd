@@ -40,12 +40,12 @@ const Hero = () => {
           ref={heroRef} 
           className="scroll-appear max-w-4xl"
         >
-          <div className="tag mb-3 animate-fade-in">Data Scientist & ML Engineer</div>
+          <div className="tag mb-3 animate-fade-in">Data Scientist & ML/AI Engineer</div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
             <span className="gradient-text">Rishika Drona</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Driving innovation through data science and machine learning solutions, with expertise in ETL development, NLP, and MLOps.
+            Driving innovation through data science and machine learning solutions, with expertise in ETL development and MLOps, AI.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
@@ -55,12 +55,6 @@ const Hero = () => {
             >
               Get in touch
               <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a 
-              href="#experience" 
-              className="btn-secondary"
-            >
-              View experience
             </a>
           </div>
           

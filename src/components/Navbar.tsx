@@ -55,12 +55,7 @@ const Navbar = () => {
       )}
     >
       <div className="main-container flex items-center justify-between">
-        <a 
-          href="#hero" 
-          className="flex items-center text-lg md:text-xl font-semibold text-primary transition-all hover:opacity-80"
-        >
-          Rishika Drona
-        </a>
+        <div className="w-10"></div> {/* Empty div to maintain spacing */}
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
