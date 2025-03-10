@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import { Calendar, MapPin, Award, Briefcase, ChevronDown, ChevronUp, Zap, GitBranch } from 'lucide-react';
 
@@ -174,12 +173,12 @@ const Experience = () => {
   return (
     <section id="experience" className="section-container relative overflow-hidden" style={{ minHeight: '100vh' }}>
       {/* Decorative elements */}
-      <div className="absolute top-20 left-10 w-56 h-56 bg-primary/5 rounded-full filter blur-3xl opacity-60 animate-pulse-subtle"></div>
-      <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-100 rounded-full filter blur-3xl animate-pulse-subtle"></div>
+      <div className="absolute top-20 left-10 w-56 h-56 bg-primary/5 rounded-full filter blur-3xl opacity-60"></div>
+      <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-100 rounded-full filter blur-3xl"></div>
       
       <div className="main-container relative z-10">
         <h2 className="section-title flex items-center">
-          <Briefcase size={28} className="mr-2 text-primary animate-pulse-subtle" /> Work Experience
+          <Briefcase size={28} className="mr-2 text-primary" /> Work Experience
         </h2>
         
         <div className="mt-8 flex flex-col md:flex-row">
@@ -200,7 +199,7 @@ const Experience = () => {
                       onClick={() => navigateJob(index)}
                       className={`relative flex items-center w-full text-left p-3 rounded-lg transition-all duration-300 
                       ${activeJob === index 
-                        ? 'bg-primary text-white shadow-lg scale-105 font-medium' 
+                        ? 'bg-primary text-white shadow-lg font-medium' 
                         : 'hover:bg-primary/10'}`}
                     >
                       <div 
@@ -217,7 +216,7 @@ const Experience = () => {
                       </div>
                     </button>
                     {index < experienceData.length - 1 && (
-                      <div className={`h-10 w-0.5 ml-[1.4rem] bg-gradient-to-b ${activeJob === index ? 'from-primary to-gray-200' : activeJob === index + 1 ? 'from-gray-200 to-primary' : 'bg-gray-200'}`}></div>
+                      <div className={`h-10 w-0.5 ml-[1.4rem] bg-gray-200`}></div>
                     )}
                   </div>
                 ))}
@@ -231,23 +230,22 @@ const Experience = () => {
             className="w-full md:w-2/3 relative"
             style={{ 
               perspective: '1000px',
-              minHeight: '600px' 
+              minHeight: '600px',
+              maxHeight: '700px' 
             }}
           >
             <div className="job-cards-container relative">
               {experienceData.map((job, index) => (
                 <div 
                   key={index}
-                  className={`job-card neo-card absolute w-full transition-all duration-800 
+                  className={`job-card neo-card absolute w-full transition-all duration-500 overflow-auto
                     ${activeJob === index 
-                      ? 'opacity-100 transform-none z-20 rotate-0 shadow-3d' 
+                      ? 'opacity-100 transform-none z-20' 
                       : index < activeJob 
-                        ? 'opacity-0 -translate-y-[30px] -rotate-3 scale-90 z-10' 
-                        : 'opacity-0 translate-y-[30px] rotate-3 scale-90 z-10'}`}
+                        ? 'opacity-0 -translate-y-20 z-10' 
+                        : 'opacity-0 translate-y-20 z-10'}`}
                   style={{
-                    transformStyle: 'preserve-3d',
-                    transformOrigin: index < activeJob ? 'bottom center' : 'top center',
-                    transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
+                    maxHeight: '700px'
                   }}
                 >
                   <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-5">
@@ -269,7 +267,7 @@ const Experience = () => {
                   
                   <ul className="space-y-3 mb-5">
                     {job.responsibilities.slice(0, expandedJobs[index] ? job.responsibilities.length : 3).map((responsibility, respIndex) => (
-                      <li key={respIndex} className="text-gray-700 text-sm flex items-start transform transition-all hover:translate-x-1">
+                      <li key={respIndex} className="text-gray-700 text-sm flex items-start">
                         <span className="inline-block w-2 h-2 rounded-full bg-primary/70 mt-1.5 mr-2 flex-shrink-0"></span>
                         <span>{responsibility}</span>
                       </li>
@@ -279,15 +277,15 @@ const Experience = () => {
                   {job.responsibilities.length > 3 && (
                     <button 
                       onClick={() => toggleJob(index)}
-                      className="group text-sm text-primary font-medium flex items-center hover:text-primary/80 transition-colors mb-5 cursor-pointer bg-primary/10 rounded-full px-4 py-1.5 hover:bg-primary/20 transform transition-transform hover:scale-105"
+                      className="text-sm text-primary font-medium flex items-center mb-5 cursor-pointer bg-primary/10 rounded-full px-4 py-1.5 hover:bg-primary/20"
                     >
                       {expandedJobs[index] ? (
                         <>
-                          <span className="mr-1">Show less</span> <ChevronUp size={16} className="transition-transform group-hover:-translate-y-0.5" />
+                          <span className="mr-1">Show less</span> <ChevronUp size={16} />
                         </>
                       ) : (
                         <>
-                          <span className="mr-1">Show more</span> <ChevronDown size={16} className="transition-transform group-hover:translate-y-0.5" />
+                          <span className="mr-1">Show more</span> <ChevronDown size={16} />
                         </>
                       )}
                     </button>
@@ -300,7 +298,7 @@ const Experience = () => {
                       </h4>
                       <ul className="space-y-2">
                         {job.achievements.map((achievement, achIndex) => (
-                          <li key={achIndex} className="text-gray-700 text-sm flex items-start transform transition-all hover:translate-x-1">
+                          <li key={achIndex} className="text-gray-700 text-sm flex items-start">
                             <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary/70 mt-1.5 mr-2 flex-shrink-0"></span>
                             <span>{achievement}</span>
                           </li>
@@ -309,17 +307,17 @@ const Experience = () => {
                     </div>
                   )}
                   
-                  <div className="absolute -bottom-3 -right-3 flex space-x-2">
+                  <div className="absolute bottom-4 right-4 flex space-x-2">
                     <button 
                       onClick={() => navigateJob(Math.max(0, index - 1))}
-                      className={`w-10 h-10 rounded-full flex items-center justify-center ${index === 0 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-primary/10 text-primary hover:bg-primary/20 transform transition-transform hover:scale-110'}`}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center ${index === 0 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}
                       disabled={index === 0}
                     >
                       <ChevronUp size={18} />
                     </button>
                     <button 
                       onClick={() => navigateJob(Math.min(experienceData.length - 1, index + 1))}
-                      className={`w-10 h-10 rounded-full flex items-center justify-center ${index === experienceData.length - 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-primary/10 text-primary hover:bg-primary/20 transform transition-transform hover:scale-110'}`}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center ${index === experienceData.length - 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-primary/10 text-primary hover:bg-primary/20'}`}
                       disabled={index === experienceData.length - 1}
                     >
                       <ChevronDown size={18} />

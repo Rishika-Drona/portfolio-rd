@@ -22,13 +22,13 @@ const About = () => {
           // Scrolling down - show education
           setIsTransitioning(true);
           setActiveCard('education');
-          setTimeout(() => setIsTransitioning(false), 800); // Increased for smoother transition
+          setTimeout(() => setIsTransitioning(false), 800);
           e.preventDefault();
         } else if (e.deltaY < 0 && activeCard === 'education') {
           // Scrolling up - show summary
           setIsTransitioning(true);
           setActiveCard('summary');
-          setTimeout(() => setIsTransitioning(false), 800); // Increased for smoother transition
+          setTimeout(() => setIsTransitioning(false), 800); 
           e.preventDefault();
         }
       }
@@ -83,15 +83,13 @@ const About = () => {
 
   return (
     <section id="about" className="section-container bg-accent/50 relative overflow-hidden" style={{ minHeight: '120vh' }}>
-      {/* Decorative elements - enhanced with more dynamic elements */}
-      <div className="absolute top-20 left-10 w-64 h-64 bg-purple-100 rounded-full filter blur-3xl opacity-60 animate-pulse-subtle"></div>
-      <div className="absolute bottom-20 right-10 w-72 h-72 bg-primary/5 rounded-full filter blur-3xl animate-pulse-subtle"></div>
-      <div className="absolute top-1/3 right-1/4 w-48 h-48 bg-blue-50 rounded-full filter blur-3xl opacity-40 animate-pulse-subtle" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute bottom-1/3 left-1/4 w-56 h-56 bg-pink-50 rounded-full filter blur-3xl opacity-30 animate-pulse-subtle" style={{ animationDelay: '1.5s' }}></div>
+      {/* Simple background elements */}
+      <div className="absolute top-20 left-10 w-64 h-64 bg-purple-100 rounded-full filter blur-3xl opacity-60"></div>
+      <div className="absolute bottom-20 right-10 w-72 h-72 bg-primary/5 rounded-full filter blur-3xl opacity-50"></div>
       
       <div className="main-container relative z-10">
         <h2 className="section-title flex items-center">
-          <Sparkles size={28} className="mr-2 text-primary animate-pulse-subtle" /> About Me
+          <Sparkles size={28} className="mr-2 text-primary" /> About Me
         </h2>
         
         <div className="mt-8 text-center">
@@ -99,16 +97,16 @@ const About = () => {
           <div className="flex items-center justify-center gap-2 mt-2">
             <button 
               onClick={() => !isTransitioning && setActiveCard('summary')} 
-              className={`px-4 py-1.5 rounded-full transition-all duration-500 transform ${activeCard === 'summary' 
-                ? 'bg-primary text-white scale-110 shadow-lg' 
+              className={`px-4 py-1.5 rounded-full transition-all duration-300 ${activeCard === 'summary' 
+                ? 'bg-primary text-white' 
                 : 'bg-gray-200 hover:bg-gray-300'}`}
             >
               Summary
             </button>
             <button 
               onClick={() => !isTransitioning && setActiveCard('education')} 
-              className={`px-4 py-1.5 rounded-full transition-all duration-500 transform ${activeCard === 'education' 
-                ? 'bg-primary text-white scale-110 shadow-lg' 
+              className={`px-4 py-1.5 rounded-full transition-all duration-300 ${activeCard === 'education' 
+                ? 'bg-primary text-white' 
                 : 'bg-gray-200 hover:bg-gray-300'}`}
             >
               Education
@@ -120,18 +118,13 @@ const About = () => {
           {/* Professional Summary Card */}
           <div 
             ref={summaryRef} 
-            className={`neo-card absolute w-full transition-all duration-800 ${
+            className={`neo-card absolute w-full transition-all duration-500 ${
               activeCard === 'summary' 
-                ? 'opacity-100 transform-none z-20 rotate-0 shadow-2xl' 
-                : 'opacity-0 -translate-y-8 -translate-z-20 scale-95 rotate-6 z-10'
+                ? 'opacity-100 transform-none z-20' 
+                : 'opacity-0 -translate-y-8 z-10'
             }`}
-            style={{
-              transformStyle: 'preserve-3d',
-              backfaceVisibility: 'hidden',
-              transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
-            }}
           >
-            <div className="absolute -top-3 -left-3 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-lg">
+            <div className="absolute -top-3 -left-3 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary">
               <Code size={28} />
             </div>
             
@@ -156,15 +149,15 @@ const About = () => {
             </p>
             
             <div className="mt-6 flex space-x-4">
-              <div className="flex-1 p-3 bg-primary/10 rounded-lg text-center transform hover:scale-105 hover:bg-primary/15 transition-all duration-500 shadow-sm hover:shadow-md">
+              <div className="flex-1 p-3 bg-primary/10 rounded-lg text-center">
                 <div className="text-xl font-bold text-primary">9+</div>
                 <div className="text-xs text-gray-600">Years Experience</div>
               </div>
-              <div className="flex-1 p-3 bg-primary/10 rounded-lg text-center transform hover:scale-105 hover:bg-primary/15 transition-all duration-500 shadow-sm hover:shadow-md">
+              <div className="flex-1 p-3 bg-primary/10 rounded-lg text-center">
                 <div className="text-xl font-bold text-primary">20+</div>
                 <div className="text-xs text-gray-600">Projects Completed</div>
               </div>
-              <div className="flex-1 p-3 bg-primary/10 rounded-lg text-center transform hover:scale-105 hover:bg-primary/15 transition-all duration-500 shadow-sm hover:shadow-md">
+              <div className="flex-1 p-3 bg-primary/10 rounded-lg text-center">
                 <div className="text-xl font-bold text-primary">10+</div>
                 <div className="text-xs text-gray-600">ML Models in Production</div>
               </div>
@@ -174,18 +167,13 @@ const About = () => {
           {/* Education Card */}
           <div 
             ref={educationRef} 
-            className={`neo-card absolute w-full transition-all duration-800 ${
+            className={`neo-card absolute w-full transition-all duration-500 ${
               activeCard === 'education' 
-                ? 'opacity-100 transform-none z-20 rotate-0 shadow-2xl' 
-                : 'opacity-0 translate-y-8 -translate-z-20 scale-95 -rotate-6 z-10'
+                ? 'opacity-100 transform-none z-20' 
+                : 'opacity-0 translate-y-8 z-10'
             }`}
-            style={{
-              transformStyle: 'preserve-3d',
-              backfaceVisibility: 'hidden',
-              transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
-            }}
           >
-            <div className="absolute -top-3 -left-3 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-lg">
+            <div className="absolute -top-3 -left-3 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary">
               <GraduationCap size={28} />
             </div>
             
@@ -193,7 +181,7 @@ const About = () => {
             <div className="gradient-line w-1/3 h-1 bg-gradient-to-r from-primary/30 to-primary mb-6 rounded-full"></div>
             
             <div className="space-y-6">
-              <div className="transform transition-all duration-500 hover:translate-x-2 p-4 rounded-lg hover:bg-white/70">
+              <div className="p-4 rounded-lg hover:bg-white/70">
                 <div className="flex justify-between items-start mb-1">
                   <h4 className="font-medium text-gray-800 text-lg">Marshall University</h4>
                   <span className="text-sm text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full">WV</span>
@@ -211,7 +199,7 @@ const About = () => {
                 </div>
               </div>
               
-              <div className="transform transition-all duration-500 hover:translate-x-2 p-4 rounded-lg hover:bg-white/70">
+              <div className="p-4 rounded-lg hover:bg-white/70">
                 <div className="flex justify-between items-start mb-1">
                   <h4 className="font-medium text-gray-800 text-lg">Jaipur Engineering College and Research Center</h4>
                   <span className="text-sm text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full">India</span>
