@@ -19,7 +19,7 @@ const visualizationData = [
     title: "Product Performance Dashboard",
     description: "Analysis of product performance metrics including sales volume, revenue, and customer satisfaction scores.",
     tableauUrl: "https://public.tableau.com/app/profile/rishika.drona/vizzes",
-    image: "/lovable-uploads/cfdbad8e-9dbf-4f8e-93c0-8f9b7db94a4b.png"
+    image: "/lovable-uploads/d158bdf7-6481-4bb5-b232-1ca5a29583bf.png"
   }
 ];
 
