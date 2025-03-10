@@ -32,8 +32,8 @@ const Index = () => {
     overlay.id = 'background-overlay';
     overlay.style.position = 'fixed';
     overlay.style.inset = '0';
-    overlay.style.background = 'radial-gradient(circle at center, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 100%)';
-    overlay.style.zIndex = '0';
+    overlay.style.background = 'radial-gradient(circle at center, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%)'; // Reduced opacity
+    overlay.style.zIndex = '-5'; // Set to negative z-index to ensure it's below content but above background animation
     overlay.style.pointerEvents = 'none';
     
     if (document.body.firstChild) {
@@ -158,8 +158,9 @@ const Index = () => {
   };
   
   return (
-    <div className="min-h-screen overflow-x-hidden relative z-10" style={{ perspective: '1000px' }}>
+    <div className="min-h-screen overflow-x-hidden relative" style={{ perspective: '1000px' }}>
       <BackgroundAnimation />
+      
       <Navbar />
       
       <main className="relative z-10">
