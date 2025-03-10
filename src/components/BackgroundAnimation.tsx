@@ -14,7 +14,7 @@ const BackgroundAnimation = () => {
     }
     
     // Create bubbles - significantly increased number and improved visibility
-    const numberOfBubbles = 50; // Significantly more bubbles
+    const numberOfBubbles = 100; // Doubled the number of bubbles
     for (let i = 0; i < numberOfBubbles; i++) {
       const bubble = document.createElement('div');
       bubble.classList.add('bg-bubble');
@@ -24,8 +24,12 @@ const BackgroundAnimation = () => {
       bubble.style.width = `${size}px`;
       bubble.style.height = `${size}px`;
       
-      // Position across entire viewport
-      const posX = Math.floor(Math.random() * 100);
+      // Position across entire viewport with emphasis on left side for half of the bubbles
+      let posX = Math.floor(Math.random() * 100);
+      // Make half the bubbles favor the left side of the screen
+      if (i % 2 === 0) {
+        posX = Math.floor(Math.random() * 40); // 0% to 40% from left
+      }
       const posY = Math.floor(Math.random() * 100);
       bubble.style.left = `${posX}%`;
       bubble.style.top = `${posY}%`;
@@ -65,7 +69,7 @@ const BackgroundAnimation = () => {
     }
     
     // Create moving lines - significantly more lines
-    const numberOfLines = 40; // Many more lines
+    const numberOfLines = 80; // Doubled the number of lines
     for (let i = 0; i < numberOfLines; i++) {
       const line = document.createElement('div');
       line.classList.add('gradient-line');
@@ -76,11 +80,18 @@ const BackgroundAnimation = () => {
       line.style.width = `${width}%`;
       line.style.height = `${height}px`;
       
-      // Distribute across the entire viewport
+      // Distribute across the entire viewport with emphasis on left side for half the lines
       const posY = Math.floor(Math.random() * 95) + 2; // 2% to 97% from top
       line.style.top = `${posY}%`;
-      line.style.left = Math.random() > 0.5 ? '0' : 'auto';
-      line.style.right = Math.random() > 0.5 ? '0' : 'auto';
+      
+      // Make half the lines start from the left side
+      if (i % 2 === 0) {
+        line.style.left = '0';
+        line.style.right = 'auto';
+      } else {
+        line.style.left = Math.random() > 0.5 ? '0' : 'auto';
+        line.style.right = Math.random() > 0.5 ? '0' : 'auto';
+      }
       
       // Varied animation speeds
       const duration = Math.floor(Math.random() * 15) + 5; // 5s to 20s
@@ -114,8 +125,48 @@ const BackgroundAnimation = () => {
       container.appendChild(line);
     }
     
+    // Create horizontal lines that move left to right
+    const numberOfHorizontalLines = 30; // Added 30 horizontal lines
+    for (let i = 0; i < numberOfHorizontalLines; i++) {
+      const hLine = document.createElement('div');
+      hLine.classList.add('horizontal-line');
+      
+      // Varied sizes for horizontal lines
+      const height = Math.floor(Math.random() * 6) + 1; // 1px to 7px height
+      hLine.style.height = `${height}px`;
+      hLine.style.width = `${Math.floor(Math.random() * 40) + 10}%`; // 10% to 50% width
+      
+      // Position more on the left side
+      let posX = Math.floor(Math.random() * 40); // 0% to 40% from left
+      const posY = Math.floor(Math.random() * 95) + 2; // 2% to 97% from top
+      hLine.style.left = `${posX}%`;
+      hLine.style.top = `${posY}%`;
+      
+      // Animation properties
+      const duration = Math.floor(Math.random() * 12) + 8; // 8s to 20s
+      const delay = Math.floor(Math.random() * 8);
+      hLine.style.animationName = 'horizontal-line-move';
+      hLine.style.animationDuration = `${duration}s`;
+      hLine.style.animationDelay = `${delay}s`;
+      hLine.style.animationIterationCount = 'infinite';
+      hLine.style.animationTimingFunction = 'linear';
+      
+      // Colors
+      const colors = [
+        'rgba(155, 135, 245, 0.7)', // Purple
+        'rgba(103, 232, 249, 0.7)', // Cyan
+        'rgba(235, 181, 245, 0.7)', // Pink
+        'rgba(181, 245, 186, 0.7)', // Light green
+        'rgba(252, 165, 241, 0.7)'  // Bright pink
+      ];
+      hLine.style.background = colors[Math.floor(Math.random() * colors.length)];
+      hLine.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.5)';
+      
+      container.appendChild(hLine);
+    }
+    
     // Create pulse rings - more rings with better visibility
-    const numberOfRings = 25; // More rings
+    const numberOfRings = 40; // More rings
     for (let i = 0; i < numberOfRings; i++) {
       const ring = document.createElement('div');
       ring.classList.add('bg-pulse-ring');
@@ -125,8 +176,12 @@ const BackgroundAnimation = () => {
       ring.style.width = `${size}px`;
       ring.style.height = `${size}px`;
       
-      // Position across entire viewport
-      const posX = Math.floor(Math.random() * 90) + 5; // 5% to 95% from left
+      // Position across entire viewport with emphasis on left side for half the rings
+      let posX = Math.floor(Math.random() * 90) + 5; // 5% to 95% from left
+      // Make half the rings favor the left side of the screen
+      if (i % 2 === 0) {
+        posX = Math.floor(Math.random() * 40) + 5; // 5% to 45% from left
+      }
       const posY = Math.floor(Math.random() * 90) + 5; // 5% to 95% from top
       ring.style.left = `${posX}%`;
       ring.style.top = `${posY}%`;
@@ -195,6 +250,30 @@ const BackgroundAnimation = () => {
           }
           100% {
             transform: translateX(100%);
+          }
+        }
+        
+        .horizontal-line {
+          position: absolute;
+          border-radius: 10px;
+          z-index: -1;
+          pointer-events: none;
+        }
+        
+        @keyframes horizontal-line-move {
+          0% {
+            transform: translateX(0);
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          90% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateX(150vw);
+            opacity: 0;
           }
         }
         
