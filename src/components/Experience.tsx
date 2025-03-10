@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import { Calendar, MapPin, Award, Briefcase, ChevronDown, ChevronUp, Zap, GitBranch } from 'lucide-react';
 
