@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -10,7 +9,6 @@ import Contact from '@/components/Contact';
 import TableauVisualizations from '@/components/TableauVisualizations';
 import BlogPosts from '@/components/BlogPosts';
 import Certifications from '@/components/Certifications';
-import ResumeButton from '@/components/ResumeButton';
 import { ArrowUp } from 'lucide-react';
 
 const Index = () => {
@@ -647,9 +645,6 @@ const Index = () => {
       
       <main className="relative z-10">
         <Hero />
-        <div className="flex justify-center -mt-8 mb-8 relative z-20">
-          <ResumeButton />
-        </div>
         <About />
         <Experience />
         <Projects />

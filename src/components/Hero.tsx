@@ -1,6 +1,6 @@
 
 import { useEffect, useRef } from 'react';
-import { ArrowRight, Mail, Github, Linkedin, ExternalLink, Download, BookOpen } from 'lucide-react';
+import { ArrowRight, Mail, Github, Linkedin, BookOpen } from 'lucide-react';
 
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -79,14 +79,6 @@ const Hero = () => {
               className="btn-secondary"
             >
               View experience
-            </a>
-            <a 
-              href="/resume.pdf" 
-              target="_blank"
-              className="inline-flex items-center justify-center px-6 py-3 bg-white border border-gray-200 text-gray-800 rounded-lg font-medium transition-all hover:bg-gray-50 hover:shadow-md"
-            >
-              Resume
-              <Download size={16} className="ml-2" />
             </a>
           </div>
           
