@@ -1,6 +1,6 @@
 
-import { useRef, useState } from 'react';
-import { Calendar, MapPin, Award, Briefcase, ChevronDown, ChevronUp } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Calendar, MapPin, Award, Briefcase, ChevronDown, ChevronUp, Zap } from 'lucide-react';
 
 const experienceData = [
   {
@@ -132,6 +132,27 @@ const experienceData = [
 const Experience = () => {
   const experienceRef = useRef<HTMLDivElement>(null);
   const [expandedJobs, setExpandedJobs] = useState<{[key: number]: boolean}>({});
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (experienceRef.current) {
+      observer.observe(experienceRef.current);
+    }
+    
+    return () => {
+      if (experienceRef.current) {
+        observer.unobserve(experienceRef.current);
+      }
+    };
+  }, []);
 
   const toggleJob = (index: number) => {
     setExpandedJobs(prevState => {
@@ -142,20 +163,22 @@ const Experience = () => {
   };
 
   return (
-    <section id="experience" className="section-container relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-20 left-10 w-56 h-56 bg-primary/5 rounded-full filter blur-3xl opacity-60"></div>
-      <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-100 rounded-full filter blur-3xl"></div>
-      
-      <div className="main-container relative z-10">
+    <section id="experience" className="section-container">
+      <div className="main-container">
         <h2 className="section-title flex items-center">
-          <Briefcase size={28} className="mr-2 text-primary" /> Work Experience
+          <Briefcase size={28} className="mr-2 text-primary animate-pulse-subtle" /> Work Experience
         </h2>
         
-        <div className="mt-12 space-y-10" ref={experienceRef}>
+        <div 
+          ref={experienceRef} 
+          className="scroll-appear mt-12 relative"
+        >
           {experienceData.map((job, index) => (
-            <div key={index} className="neo-card scroll-appear">
-              <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-5">
+            <div 
+              key={index} 
+              className="timeline-item neo-card mb-6 transition-all hover:shadow-lg group"
+            >
+              <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900">{job.position}</h3>
                   <p className="text-primary font-medium">{job.company}</p>
@@ -170,9 +193,7 @@ const Experience = () => {
                 </div>
               </div>
               
-              <div className="gradient-line w-1/3 h-1 bg-gradient-to-r from-primary/30 to-primary mb-6 rounded-full"></div>
-              
-              <ul className="space-y-3 mb-5">
+              <ul className="space-y-2 mb-4">
                 {job.responsibilities.slice(0, expandedJobs[index] ? job.responsibilities.length : 3).map((responsibility, respIndex) => (
                   <li key={respIndex} className="text-gray-700 text-sm flex items-start">
                     <span className="inline-block w-2 h-2 rounded-full bg-primary/70 mt-1.5 mr-2 flex-shrink-0"></span>
@@ -184,26 +205,26 @@ const Experience = () => {
               {job.responsibilities.length > 3 && (
                 <button 
                   onClick={() => toggleJob(index)}
-                  className="text-sm text-primary font-medium flex items-center mb-5 cursor-pointer bg-primary/10 rounded-full px-4 py-1.5 hover:bg-primary/20"
+                  className="group text-sm text-primary font-medium flex items-center hover:text-primary/80 transition-colors mb-3 cursor-pointer bg-primary/10 rounded-full px-4 py-1.5 hover:bg-primary/20"
                 >
                   {expandedJobs[index] ? (
                     <>
-                      <span className="mr-1">Show less</span> <ChevronUp size={16} />
+                      <span className="mr-1">Show less</span> <ChevronUp size={16} className="transition-transform group-hover:-translate-y-0.5" />
                     </>
                   ) : (
                     <>
-                      <span className="mr-1">Show more</span> <ChevronDown size={16} />
+                      <span className="mr-1">Show more</span> <ChevronDown size={16} className="transition-transform group-hover:translate-y-0.5" />
                     </>
                   )}
                 </button>
               )}
               
               {expandedJobs[index] && job.achievements && job.achievements.length > 0 && (
-                <div className="mt-4 pt-4 border-t border-gray-100">
-                  <h4 className="text-sm font-semibold text-gray-800 flex items-center mb-3">
+                <div className="mt-4 pt-3 border-t border-gray-100">
+                  <h4 className="text-sm font-semibold text-gray-800 flex items-center mb-2">
                     <Award size={14} className="mr-1 text-primary" /> Key Achievements
                   </h4>
-                  <ul className="space-y-2">
+                  <ul className="space-y-1">
                     {job.achievements.map((achievement, achIndex) => (
                       <li key={achIndex} className="text-gray-700 text-sm flex items-start">
                         <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary/70 mt-1.5 mr-2 flex-shrink-0"></span>

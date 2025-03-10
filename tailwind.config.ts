@@ -98,14 +98,6 @@ export default {
 					'0%, 100%': { opacity: '1' },
 					'50%': { opacity: '0.8' },
 				},
-				'flip-in': {
-					'0%': { opacity: '0', transform: 'rotateY(-10deg) translateZ(-50px)' },
-					'100%': { opacity: '1', transform: 'rotateY(0) translateZ(0)' },
-				},
-				'flip-out': {
-					'0%': { opacity: '1', transform: 'rotateY(0) translateZ(0)' },
-					'100%': { opacity: '0', transform: 'rotateY(10deg) translateZ(-50px)' },
-				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -114,19 +106,12 @@ export default {
 				'fade-in-up': 'fade-in-up 0.7s ease-out',
 				'slide-in-right': 'slide-in-right 0.5s ease-out',
 				'pulse-subtle': 'pulse-subtle 3s infinite ease-in-out',
-				'flip-in': 'flip-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
-				'flip-out': 'flip-out 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
 			},
 			boxShadow: {
 				'neo': '10px 10px 20px rgba(0, 0, 0, 0.03), -10px -10px 20px rgba(255, 255, 255, 0.8)',
 				'neo-hover': '15px 15px 30px rgba(0, 0, 0, 0.05), -15px -15px 30px rgba(255, 255, 255, 0.9)',
 				'neo-inset': 'inset 5px 5px 10px rgba(0, 0, 0, 0.05), inset -5px -5px 10px rgba(255, 255, 255, 0.8)',
 				'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.05)',
-				'3d': '0 10px 30px -15px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-				'3d-hover': '0 20px 40px -20px rgba(0, 0, 0, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.1)',
-			},
-			transitionTimingFunction: {
-				'spring': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
 			},
 		}
 	},
