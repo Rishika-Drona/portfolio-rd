@@ -1,6 +1,6 @@
 
 import { useEffect, useRef, useState } from 'react';
-import { Calendar, MapPin, Award, Briefcase, ChevronDown, ChevronUp, Zap } from 'lucide-react';
+import { Calendar, MapPin, Award, Briefcase, ChevronDown, ChevronUp, Zap, GitBranch } from 'lucide-react';
 
 const experienceData = [
   {
@@ -132,6 +132,8 @@ const experienceData = [
 const Experience = () => {
   const experienceRef = useRef<HTMLDivElement>(null);
   const [expandedJobs, setExpandedJobs] = useState<{[key: number]: boolean}>({});
+  const [activeJob, setActiveJob] = useState<number>(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -162,80 +164,171 @@ const Experience = () => {
     });
   };
 
+  const navigateJob = (index: number) => {
+    if (isTransitioning || index === activeJob) return;
+    setIsTransitioning(true);
+    setActiveJob(index);
+    setTimeout(() => setIsTransitioning(false), 800);
+  };
+
   return (
-    <section id="experience" className="section-container">
-      <div className="main-container">
+    <section id="experience" className="section-container relative overflow-hidden" style={{ minHeight: '100vh' }}>
+      {/* Decorative elements */}
+      <div className="absolute top-20 left-10 w-56 h-56 bg-primary/5 rounded-full filter blur-3xl opacity-60 animate-pulse-subtle"></div>
+      <div className="absolute bottom-20 right-10 w-72 h-72 bg-purple-100 rounded-full filter blur-3xl animate-pulse-subtle"></div>
+      
+      <div className="main-container relative z-10">
         <h2 className="section-title flex items-center">
           <Briefcase size={28} className="mr-2 text-primary animate-pulse-subtle" /> Work Experience
         </h2>
         
-        <div 
-          ref={experienceRef} 
-          className="scroll-appear mt-12 relative"
-        >
-          {experienceData.map((job, index) => (
-            <div 
-              key={index} 
-              className="timeline-item neo-card mb-6 transition-all hover:shadow-lg group"
-            >
-              <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900">{job.position}</h3>
-                  <p className="text-primary font-medium">{job.company}</p>
-                </div>
-                <div className="flex flex-col md:flex-row md:items-center mt-2 md:mt-0 md:space-x-4">
-                  <span className="flex items-center text-sm text-gray-500 mb-1 md:mb-0">
-                    <MapPin size={14} className="mr-1 text-primary/70" /> {job.location}
-                  </span>
-                  <span className="flex items-center text-sm font-medium text-gray-600">
-                    <Calendar size={14} className="mr-1 text-primary/70" /> {job.period}
-                  </span>
-                </div>
-              </div>
+        <div className="mt-8 flex flex-col md:flex-row">
+          {/* Tree/Timeline navigation */}
+          <div className="w-full md:w-1/3 mb-8 md:mb-0 md:pr-6">
+            <div className="sticky top-24 bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-neo">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                <GitBranch size={20} className="mr-2 text-primary" /> Career Path
+              </h3>
               
-              <ul className="space-y-2 mb-4">
-                {job.responsibilities.slice(0, expandedJobs[index] ? job.responsibilities.length : 3).map((responsibility, respIndex) => (
-                  <li key={respIndex} className="text-gray-700 text-sm flex items-start">
-                    <span className="inline-block w-2 h-2 rounded-full bg-primary/70 mt-1.5 mr-2 flex-shrink-0"></span>
-                    <span>{responsibility}</span>
-                  </li>
+              <div className="timeline-tree">
+                {experienceData.map((job, index) => (
+                  <div 
+                    key={index}
+                    className={`timeline-node mb-4 ${activeJob === index ? 'active' : ''}`}
+                  >
+                    <button
+                      onClick={() => navigateJob(index)}
+                      className={`relative flex items-center w-full text-left p-3 rounded-lg transition-all duration-300 
+                      ${activeJob === index 
+                        ? 'bg-primary text-white shadow-lg scale-105 font-medium' 
+                        : 'hover:bg-primary/10'}`}
+                    >
+                      <div 
+                        className={`w-3 h-3 rounded-full mr-3 ${activeJob === index ? 'bg-white' : 'bg-primary'}`}
+                      ></div>
+                      <div className="flex-1">
+                        <p className={`font-medium ${activeJob === index ? 'text-white' : 'text-gray-800'}`}>
+                          {job.company}
+                        </p>
+                        <div className="flex items-center text-xs mt-1">
+                          <Calendar size={12} className="mr-1" /> 
+                          <span>{job.period}</span>
+                        </div>
+                      </div>
+                    </button>
+                    {index < experienceData.length - 1 && (
+                      <div className={`h-10 w-0.5 ml-[1.4rem] bg-gradient-to-b ${activeJob === index ? 'from-primary to-gray-200' : activeJob === index + 1 ? 'from-gray-200 to-primary' : 'bg-gray-200'}`}></div>
+                    )}
+                  </div>
                 ))}
-              </ul>
-              
-              {job.responsibilities.length > 3 && (
-                <button 
-                  onClick={() => toggleJob(index)}
-                  className="group text-sm text-primary font-medium flex items-center hover:text-primary/80 transition-colors mb-3 cursor-pointer bg-primary/10 rounded-full px-4 py-1.5 hover:bg-primary/20"
+              </div>
+            </div>
+          </div>
+          
+          {/* Job details */}
+          <div 
+            ref={experienceRef} 
+            className="w-full md:w-2/3 relative"
+            style={{ 
+              perspective: '1000px',
+              minHeight: '600px' 
+            }}
+          >
+            <div className="job-cards-container relative">
+              {experienceData.map((job, index) => (
+                <div 
+                  key={index}
+                  className={`job-card neo-card absolute w-full transition-all duration-800 
+                    ${activeJob === index 
+                      ? 'opacity-100 transform-none z-20 rotate-0 shadow-3d' 
+                      : index < activeJob 
+                        ? 'opacity-0 -translate-y-[30px] -rotate-3 scale-90 z-10' 
+                        : 'opacity-0 translate-y-[30px] rotate-3 scale-90 z-10'}`}
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transformOrigin: index < activeJob ? 'bottom center' : 'top center',
+                    transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
+                  }}
                 >
-                  {expandedJobs[index] ? (
-                    <>
-                      <span className="mr-1">Show less</span> <ChevronUp size={16} className="transition-transform group-hover:-translate-y-0.5" />
-                    </>
-                  ) : (
-                    <>
-                      <span className="mr-1">Show more</span> <ChevronDown size={16} className="transition-transform group-hover:translate-y-0.5" />
-                    </>
-                  )}
-                </button>
-              )}
-              
-              {expandedJobs[index] && job.achievements && job.achievements.length > 0 && (
-                <div className="mt-4 pt-3 border-t border-gray-100">
-                  <h4 className="text-sm font-semibold text-gray-800 flex items-center mb-2">
-                    <Award size={14} className="mr-1 text-primary" /> Key Achievements
-                  </h4>
-                  <ul className="space-y-1">
-                    {job.achievements.map((achievement, achIndex) => (
-                      <li key={achIndex} className="text-gray-700 text-sm flex items-start">
-                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary/70 mt-1.5 mr-2 flex-shrink-0"></span>
-                        <span>{achievement}</span>
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-5">
+                    <div>
+                      <h3 className="text-xl font-semibold text-gray-900">{job.position}</h3>
+                      <p className="text-primary font-medium">{job.company}</p>
+                    </div>
+                    <div className="flex flex-col md:flex-row md:items-center mt-2 md:mt-0 md:space-x-4">
+                      <span className="flex items-center text-sm text-gray-500 mb-1 md:mb-0">
+                        <MapPin size={14} className="mr-1 text-primary/70" /> {job.location}
+                      </span>
+                      <span className="flex items-center text-sm font-medium text-gray-600">
+                        <Calendar size={14} className="mr-1 text-primary/70" /> {job.period}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="gradient-line w-1/3 h-1 bg-gradient-to-r from-primary/30 to-primary mb-6 rounded-full"></div>
+                  
+                  <ul className="space-y-3 mb-5">
+                    {job.responsibilities.slice(0, expandedJobs[index] ? job.responsibilities.length : 3).map((responsibility, respIndex) => (
+                      <li key={respIndex} className="text-gray-700 text-sm flex items-start transform transition-all hover:translate-x-1">
+                        <span className="inline-block w-2 h-2 rounded-full bg-primary/70 mt-1.5 mr-2 flex-shrink-0"></span>
+                        <span>{responsibility}</span>
                       </li>
                     ))}
                   </ul>
+                  
+                  {job.responsibilities.length > 3 && (
+                    <button 
+                      onClick={() => toggleJob(index)}
+                      className="group text-sm text-primary font-medium flex items-center hover:text-primary/80 transition-colors mb-5 cursor-pointer bg-primary/10 rounded-full px-4 py-1.5 hover:bg-primary/20 transform transition-transform hover:scale-105"
+                    >
+                      {expandedJobs[index] ? (
+                        <>
+                          <span className="mr-1">Show less</span> <ChevronUp size={16} className="transition-transform group-hover:-translate-y-0.5" />
+                        </>
+                      ) : (
+                        <>
+                          <span className="mr-1">Show more</span> <ChevronDown size={16} className="transition-transform group-hover:translate-y-0.5" />
+                        </>
+                      )}
+                    </button>
+                  )}
+                  
+                  {expandedJobs[index] && job.achievements && job.achievements.length > 0 && (
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                      <h4 className="text-sm font-semibold text-gray-800 flex items-center mb-3">
+                        <Award size={14} className="mr-1 text-primary" /> Key Achievements
+                      </h4>
+                      <ul className="space-y-2">
+                        {job.achievements.map((achievement, achIndex) => (
+                          <li key={achIndex} className="text-gray-700 text-sm flex items-start transform transition-all hover:translate-x-1">
+                            <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary/70 mt-1.5 mr-2 flex-shrink-0"></span>
+                            <span>{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  
+                  <div className="absolute -bottom-3 -right-3 flex space-x-2">
+                    <button 
+                      onClick={() => navigateJob(Math.max(0, index - 1))}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center ${index === 0 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-primary/10 text-primary hover:bg-primary/20 transform transition-transform hover:scale-110'}`}
+                      disabled={index === 0}
+                    >
+                      <ChevronUp size={18} />
+                    </button>
+                    <button 
+                      onClick={() => navigateJob(Math.min(experienceData.length - 1, index + 1))}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center ${index === experienceData.length - 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-primary/10 text-primary hover:bg-primary/20 transform transition-transform hover:scale-110'}`}
+                      disabled={index === experienceData.length - 1}
+                    >
+                      <ChevronDown size={18} />
+                    </button>
+                  </div>
                 </div>
-              )}
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
