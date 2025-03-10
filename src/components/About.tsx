@@ -1,33 +1,61 @@
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { GraduationCap, Award, BookOpen, Code, Sparkles } from 'lucide-react';
 
 const About = () => {
   const aboutRef = useRef<HTMLDivElement>(null);
+  const summaryRef = useRef<HTMLDivElement>(null);
+  const educationRef = useRef<HTMLDivElement>(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
   
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+      
+      // Activate the regular intersection observer
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        },
+        { threshold: 0.1 }
+      );
+      
+      if (aboutRef.current) {
+        observer.observe(aboutRef.current);
+      }
+      
+      // Apply parallax and overlap effect
+      if (summaryRef.current && educationRef.current) {
+        const aboutSection = document.getElementById('about');
+        if (aboutSection) {
+          const aboutTop = aboutSection.getBoundingClientRect().top;
+          const aboutHeight = aboutSection.offsetHeight;
+          
+          // Calculate scroll progress within the about section
+          const scrollProgress = Math.max(0, Math.min(1, -aboutTop / (aboutHeight * 0.6)));
+          
+          // Apply transforms for the parallax and overlap effect
+          summaryRef.current.style.transform = `translateY(${scrollProgress * 40}px) scale(${1 - scrollProgress * 0.1})`;
+          summaryRef.current.style.opacity = `${1 - scrollProgress * 0.7}`;
+          
+          educationRef.current.style.transform = `translateY(${-scrollProgress * 200}px)`;
+          educationRef.current.style.zIndex = '20';
         }
-      },
-      { threshold: 0.1 }
-    );
+      }
+    };
     
-    if (aboutRef.current) {
-      observer.observe(aboutRef.current);
-    }
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initialize positions
     
     return () => {
-      if (aboutRef.current) {
-        observer.unobserve(aboutRef.current);
-      }
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
-    <section id="about" className="section-container bg-accent/50 relative">
+    <section id="about" className="section-container bg-accent/50 relative overflow-hidden" style={{ minHeight: '120vh' }}>
       {/* Decorative elements */}
       <div className="absolute top-20 left-10 w-64 h-64 bg-purple-100 rounded-full filter blur-3xl opacity-60 animate-pulse-subtle"></div>
       <div className="absolute bottom-20 right-10 w-72 h-72 bg-primary/5 rounded-full filter blur-3xl animate-pulse-subtle"></div>
@@ -37,8 +65,57 @@ const About = () => {
           <Sparkles size={28} className="mr-2 text-primary animate-pulse-subtle" /> About Me
         </h2>
         
-        <div ref={aboutRef} className="scroll-appear grid grid-cols-1 md:grid-cols-2 gap-12 mt-12">
-          <div className="neo-card relative group hover:shadow-lg transition-all duration-500">
+        <div ref={aboutRef} className="scroll-appear grid grid-cols-1 gap-12 mt-12">
+          {/* Professional Summary Card - Will move behind */}
+          <div 
+            ref={summaryRef} 
+            className="neo-card relative group hover:shadow-lg transition-all duration-500 z-10 sticky top-32"
+            style={{ transition: 'transform 0.5s ease-out, opacity 0.5s ease-out' }}
+          >
+            <div className="absolute -top-2 -left-2 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+              <Code size={24} />
+            </div>
+            
+            <h3 className="text-xl font-semibold mb-4 pl-10">Professional Summary</h3>
+            <p className="text-gray-700 mb-4">
+              I'm a <span className="highlight-text">Data Science enthusiast</span> with 9+ years of experience in designing and 
+              implementing data science and machine learning solutions for various industries including finance,
+              healthcare, and marketing.
+            </p>
+            <p className="text-gray-700 mb-4">
+              My expertise spans across the full data science lifecycle - from data acquisition and cleaning to 
+              model development, deployment, and monitoring in production environments.
+            </p>
+            <p className="text-gray-700 mb-4">
+              I specialize in building <span className="highlight-text">scalable ML pipelines</span> using orchestration tools like Airflow and Jenkins, 
+              implementing <span className="highlight-text">NLP solutions with modern transformer architectures</span>, and developing interactive dashboards for data visualization.
+            </p>
+            <p className="text-gray-700">
+              <span className="highlight-text">Recent focus:</span> Fine-tuning large language models, building retrieval-augmented generation systems, and implementing MLOps best practices for production AI applications.
+            </p>
+            
+            <div className="mt-6 flex space-x-4">
+              <div className="flex-1 p-3 bg-primary/10 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
+                <div className="text-xl font-bold text-primary">9+</div>
+                <div className="text-xs text-gray-600">Years Experience</div>
+              </div>
+              <div className="flex-1 p-3 bg-primary/10 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
+                <div className="text-xl font-bold text-primary">20+</div>
+                <div className="text-xs text-gray-600">Projects Completed</div>
+              </div>
+              <div className="flex-1 p-3 bg-primary/10 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
+                <div className="text-xl font-bold text-primary">10+</div>
+                <div className="text-xs text-gray-600">ML Models in Production</div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Education Card - Will overlap */}
+          <div 
+            ref={educationRef} 
+            className="neo-card relative group hover:shadow-lg transition-all duration-500 z-20 mt-12"
+            style={{ transition: 'transform 0.5s ease-out', marginTop: '15vh' }}
+          >
             <div className="absolute -top-2 -left-2 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
               <GraduationCap size={24} />
             </div>
@@ -77,45 +154,6 @@ const About = () => {
                   <Award size={16} className="text-primary mr-2" />
                   <span className="text-xs text-gray-600">Awarded Best Undergrad Research Project, 2017 for an ML-based project on Google Lens Recognition</span>
                 </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="neo-card relative group hover:shadow-lg transition-all duration-500">
-            <div className="absolute -top-2 -left-2 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
-              <Code size={24} />
-            </div>
-            
-            <h3 className="text-xl font-semibold mb-4 pl-10">Professional Summary</h3>
-            <p className="text-gray-700 mb-4">
-              I'm a <span className="highlight-text">Data Science enthusiast</span> with 9+ years of experience in designing and 
-              implementing data science and machine learning solutions for various industries including finance,
-              healthcare, and marketing.
-            </p>
-            <p className="text-gray-700 mb-4">
-              My expertise spans across the full data science lifecycle - from data acquisition and cleaning to 
-              model development, deployment, and monitoring in production environments.
-            </p>
-            <p className="text-gray-700 mb-4">
-              I specialize in building <span className="highlight-text">scalable ML pipelines</span> using orchestration tools like Airflow and Jenkins, 
-              implementing <span className="highlight-text">NLP solutions with modern transformer architectures</span>, and developing interactive dashboards for data visualization.
-            </p>
-            <p className="text-gray-700">
-              <span className="highlight-text">Recent focus:</span> Fine-tuning large language models, building retrieval-augmented generation systems, and implementing MLOps best practices for production AI applications.
-            </p>
-            
-            <div className="mt-6 flex space-x-4">
-              <div className="flex-1 p-3 bg-primary/10 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
-                <div className="text-xl font-bold text-primary">9+</div>
-                <div className="text-xs text-gray-600">Years Experience</div>
-              </div>
-              <div className="flex-1 p-3 bg-primary/10 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
-                <div className="text-xl font-bold text-primary">20+</div>
-                <div className="text-xs text-gray-600">Projects Completed</div>
-              </div>
-              <div className="flex-1 p-3 bg-primary/10 rounded-lg text-center transform hover:scale-105 transition-transform duration-300">
-                <div className="text-xl font-bold text-primary">10+</div>
-                <div className="text-xs text-gray-600">ML Models in Production</div>
               </div>
             </div>
           </div>
