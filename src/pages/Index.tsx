@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -11,6 +10,7 @@ import TableauVisualizations from '@/components/TableauVisualizations';
 import BlogPosts from '@/components/BlogPosts';
 import Certifications from '@/components/Certifications';
 import BackgroundAnimation from '@/components/BackgroundAnimation';
+import BackToTop from '@/components/BackToTop';
 import { ArrowUp } from 'lucide-react';
 
 const Index = () => {
@@ -198,14 +198,7 @@ const Index = () => {
         </div>
       </footer>
       
-      <button
-        id="back-to-top"
-        onClick={scrollToTop}
-        className="fixed bottom-8 right-8 p-3 bg-primary text-white rounded-full shadow-3d opacity-0 transition-opacity duration-300 hover:bg-primary/90 hover:shadow-3d-hover hover:scale-110 focus:outline-none z-50 transform-z-5 group"
-        aria-label="Back to top"
-      >
-        <ArrowUp size={24} className="animate-bounce-subtle group-hover:animate-none group-hover:translate-y-[-2px] transition-transform" />
-      </button>
+      <BackToTop />
     </div>
   );
 };
