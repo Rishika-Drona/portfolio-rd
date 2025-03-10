@@ -1,6 +1,5 @@
-
 import { useEffect, useRef, useState } from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin, ExternalLink, Send, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Github, Linkedin, ExternalLink, Send } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 
 const Contact = () => {
@@ -90,18 +89,6 @@ const Contact = () => {
                       className="text-gray-700 hover:text-primary transition-colors"
                     >
                       rishikadrona.rd@gmail.com
-                    </a>
-                  </div>
-                  
-                  <div className="flex items-center group">
-                    <div className="p-2 rounded-full bg-primary/10 text-primary mr-4 group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                      <Phone size={20} />
-                    </div>
-                    <a 
-                      href="tel:+18418882099" 
-                      className="text-gray-700 hover:text-primary transition-colors"
-                    >
-                      (841) 888-2099
                     </a>
                   </div>
                   
