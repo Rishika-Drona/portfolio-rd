@@ -455,9 +455,13 @@ const Index = () => {
           bar.style.width = '4px';
           bar.style.height = `${Math.random() * 80 + 20}%`;
           
-          if (j === 0) bar.style.backgroundColor = 'rgba(255, 165, 0, 0.5)';
-          else if (j === 1) bar.style.backgroundColor = 'rgba(255, 140, 0, 0.5)';
-          else bar.style.backgroundColor = 'rgba(255, 120, 0, 0.5)';
+          if (j === 0) {
+            bar.style.backgroundColor = 'rgba(255, 165, 0, 0.5)';
+          } else if (j === 1) {
+            bar.style.backgroundColor = 'rgba(255, 140, 0, 0.5)';
+          } else {
+            bar.style.backgroundColor = 'rgba(255, 120, 0, 0.5)';
+          }
           
           bar.style.animationDelay = `${i * 0.1 + j * 0.05}s`;
           group.appendChild(bar);
