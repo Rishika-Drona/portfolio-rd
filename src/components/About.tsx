@@ -6,53 +6,80 @@ const About = () => {
   const aboutRef = useRef<HTMLDivElement>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
   const educationRef = useRef<HTMLDivElement>(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [activeCard, setActiveCard] = useState<'summary' | 'education'>('summary');
+  const [isTransitioning, setIsTransitioning] = useState(false);
   
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollPosition(window.scrollY);
+    const handleWheel = (e: WheelEvent) => {
+      // Only handle wheel events within the About section
+      if (!aboutRef.current) return;
       
-      // Activate the regular intersection observer
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        },
-        { threshold: 0.1 }
-      );
+      const aboutRect = aboutRef.current.getBoundingClientRect();
+      const isInViewport = aboutRect.top < window.innerHeight && aboutRect.bottom > 0;
       
-      if (aboutRef.current) {
-        observer.observe(aboutRef.current);
-      }
-      
-      // Apply parallax and overlap effect
-      if (summaryRef.current && educationRef.current) {
-        const aboutSection = document.getElementById('about');
-        if (aboutSection) {
-          const aboutTop = aboutSection.getBoundingClientRect().top;
-          const aboutHeight = aboutSection.offsetHeight;
-          
-          // Calculate scroll progress within the about section
-          const scrollProgress = Math.max(0, Math.min(1, -aboutTop / (aboutHeight * 0.6)));
-          
-          // Apply transforms for the parallax and overlap effect
-          summaryRef.current.style.transform = `translateY(${scrollProgress * 40}px) scale(${1 - scrollProgress * 0.1})`;
-          summaryRef.current.style.opacity = `${1 - scrollProgress * 0.7}`;
-          
-          educationRef.current.style.transform = `translateY(${-scrollProgress * 200}px)`;
-          educationRef.current.style.zIndex = '20';
+      if (isInViewport && !isTransitioning) {
+        if (e.deltaY > 0 && activeCard === 'summary') {
+          // Scrolling down - show education
+          setIsTransitioning(true);
+          setActiveCard('education');
+          setTimeout(() => setIsTransitioning(false), 500); // Match the transition duration
+          e.preventDefault();
+        } else if (e.deltaY < 0 && activeCard === 'education') {
+          // Scrolling up - show summary
+          setIsTransitioning(true);
+          setActiveCard('summary');
+          setTimeout(() => setIsTransitioning(false), 500); // Match the transition duration
+          e.preventDefault();
         }
       }
     };
     
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initialize positions
+    // Add touch swipe support
+    let touchStartY = 0;
+    
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+    
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!aboutRef.current || isTransitioning) return;
+      
+      const aboutRect = aboutRef.current.getBoundingClientRect();
+      const isInViewport = aboutRect.top < window.innerHeight && aboutRect.bottom > 0;
+      
+      if (isInViewport) {
+        const touchEndY = e.touches[0].clientY;
+        const diff = touchStartY - touchEndY;
+        
+        // Threshold to detect intentional swipe (20px)
+        if (Math.abs(diff) > 20) {
+          if (diff > 0 && activeCard === 'summary') {
+            // Swiping up - show education
+            setIsTransitioning(true);
+            setActiveCard('education');
+            setTimeout(() => setIsTransitioning(false), 500);
+            e.preventDefault();
+          } else if (diff < 0 && activeCard === 'education') {
+            // Swiping down - show summary
+            setIsTransitioning(true);
+            setActiveCard('summary');
+            setTimeout(() => setIsTransitioning(false), 500);
+            e.preventDefault();
+          }
+        }
+      }
+    };
+    
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
     
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
     };
-  }, []);
+  }, [activeCard, isTransitioning]);
 
   return (
     <section id="about" className="section-container bg-accent/50 relative overflow-hidden" style={{ minHeight: '120vh' }}>
@@ -65,12 +92,33 @@ const About = () => {
           <Sparkles size={28} className="mr-2 text-primary animate-pulse-subtle" /> About Me
         </h2>
         
-        <div ref={aboutRef} className="scroll-appear grid grid-cols-1 gap-12 mt-12">
-          {/* Professional Summary Card - Will move behind */}
+        <div className="mt-8 text-center">
+          <p className="text-gray-600 italic">Scroll or swipe to flip cards</p>
+          <div className="flex items-center justify-center gap-2 mt-2">
+            <button 
+              onClick={() => !isTransitioning && setActiveCard('summary')} 
+              className={`px-3 py-1 rounded-full transition-all duration-300 ${activeCard === 'summary' ? 'bg-primary text-white' : 'bg-gray-200'}`}
+            >
+              Summary
+            </button>
+            <button 
+              onClick={() => !isTransitioning && setActiveCard('education')} 
+              className={`px-3 py-1 rounded-full transition-all duration-300 ${activeCard === 'education' ? 'bg-primary text-white' : 'bg-gray-200'}`}
+            >
+              Education
+            </button>
+          </div>
+        </div>
+        
+        <div ref={aboutRef} className="card-stack-container relative h-[600px] mt-8">
+          {/* Professional Summary Card */}
           <div 
             ref={summaryRef} 
-            className="neo-card relative group hover:shadow-lg transition-all duration-500 z-10 sticky top-32"
-            style={{ transition: 'transform 0.5s ease-out, opacity 0.5s ease-out' }}
+            className={`neo-card absolute w-full transition-all duration-500 ${
+              activeCard === 'summary' 
+                ? 'opacity-100 transform-none z-20' 
+                : 'opacity-0 -translate-y-8 scale-95 z-10'
+            }`}
           >
             <div className="absolute -top-2 -left-2 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
               <Code size={24} />
@@ -110,11 +158,14 @@ const About = () => {
             </div>
           </div>
           
-          {/* Education Card - Will overlap */}
+          {/* Education Card */}
           <div 
             ref={educationRef} 
-            className="neo-card relative group hover:shadow-lg transition-all duration-500 z-20 mt-12"
-            style={{ transition: 'transform 0.5s ease-out', marginTop: '15vh' }}
+            className={`neo-card absolute w-full transition-all duration-500 ${
+              activeCard === 'education' 
+                ? 'opacity-100 transform-none z-20' 
+                : 'opacity-0 translate-y-8 scale-95 z-10'
+            }`}
           >
             <div className="absolute -top-2 -left-2 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
               <GraduationCap size={24} />
