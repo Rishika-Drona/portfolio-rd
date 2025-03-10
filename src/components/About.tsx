@@ -1,88 +1,12 @@
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { GraduationCap, Award, BookOpen, Code, Sparkles } from 'lucide-react';
 
 const About = () => {
   const aboutRef = useRef<HTMLDivElement>(null);
-  const summaryRef = useRef<HTMLDivElement>(null);
-  const educationRef = useRef<HTMLDivElement>(null);
-  const [activeCard, setActiveCard] = useState<'summary' | 'education'>('summary');
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      // Only handle wheel events within the About section
-      if (!aboutRef.current) return;
-      
-      const aboutRect = aboutRef.current.getBoundingClientRect();
-      const isInViewport = aboutRect.top < window.innerHeight && aboutRect.bottom > 0;
-      
-      if (isInViewport && !isTransitioning) {
-        if (e.deltaY > 0 && activeCard === 'summary') {
-          // Scrolling down - show education
-          setIsTransitioning(true);
-          setActiveCard('education');
-          setTimeout(() => setIsTransitioning(false), 800);
-          e.preventDefault();
-        } else if (e.deltaY < 0 && activeCard === 'education') {
-          // Scrolling up - show summary
-          setIsTransitioning(true);
-          setActiveCard('summary');
-          setTimeout(() => setIsTransitioning(false), 800); 
-          e.preventDefault();
-        }
-      }
-    };
-    
-    // Add touch swipe support
-    let touchStartY = 0;
-    
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-    };
-    
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!aboutRef.current || isTransitioning) return;
-      
-      const aboutRect = aboutRef.current.getBoundingClientRect();
-      const isInViewport = aboutRect.top < window.innerHeight && aboutRect.bottom > 0;
-      
-      if (isInViewport) {
-        const touchEndY = e.touches[0].clientY;
-        const diff = touchStartY - touchEndY;
-        
-        // Threshold to detect intentional swipe (20px)
-        if (Math.abs(diff) > 20) {
-          if (diff > 0 && activeCard === 'summary') {
-            // Swiping up - show education
-            setIsTransitioning(true);
-            setActiveCard('education');
-            setTimeout(() => setIsTransitioning(false), 800);
-            e.preventDefault();
-          } else if (diff < 0 && activeCard === 'education') {
-            // Swiping down - show summary
-            setIsTransitioning(true);
-            setActiveCard('summary');
-            setTimeout(() => setIsTransitioning(false), 800);
-            e.preventDefault();
-          }
-        }
-      }
-    };
-    
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
-    };
-  }, [activeCard, isTransitioning]);
 
   return (
-    <section id="about" className="section-container bg-accent/50 relative overflow-hidden" style={{ minHeight: '120vh' }}>
+    <section id="about" className="section-container bg-accent/50 relative overflow-hidden">
       {/* Simple background elements */}
       <div className="absolute top-20 left-10 w-64 h-64 bg-purple-100 rounded-full filter blur-3xl opacity-60"></div>
       <div className="absolute bottom-20 right-10 w-72 h-72 bg-primary/5 rounded-full filter blur-3xl opacity-50"></div>
@@ -92,38 +16,9 @@ const About = () => {
           <Sparkles size={28} className="mr-2 text-primary" /> About Me
         </h2>
         
-        <div className="mt-8 text-center">
-          <p className="text-gray-600 italic">Scroll or swipe to flip cards</p>
-          <div className="flex items-center justify-center gap-2 mt-2">
-            <button 
-              onClick={() => !isTransitioning && setActiveCard('summary')} 
-              className={`px-4 py-1.5 rounded-full transition-all duration-300 ${activeCard === 'summary' 
-                ? 'bg-primary text-white' 
-                : 'bg-gray-200 hover:bg-gray-300'}`}
-            >
-              Summary
-            </button>
-            <button 
-              onClick={() => !isTransitioning && setActiveCard('education')} 
-              className={`px-4 py-1.5 rounded-full transition-all duration-300 ${activeCard === 'education' 
-                ? 'bg-primary text-white' 
-                : 'bg-gray-200 hover:bg-gray-300'}`}
-            >
-              Education
-            </button>
-          </div>
-        </div>
-        
-        <div ref={aboutRef} className="card-stack-container relative h-[600px] mt-8 perspective-1000">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8" ref={aboutRef}>
           {/* Professional Summary Card */}
-          <div 
-            ref={summaryRef} 
-            className={`neo-card absolute w-full transition-all duration-500 ${
-              activeCard === 'summary' 
-                ? 'opacity-100 transform-none z-20' 
-                : 'opacity-0 -translate-y-8 z-10'
-            }`}
-          >
+          <div className="neo-card scroll-appear">
             <div className="absolute -top-3 -left-3 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary">
               <Code size={28} />
             </div>
@@ -165,14 +60,7 @@ const About = () => {
           </div>
           
           {/* Education Card */}
-          <div 
-            ref={educationRef} 
-            className={`neo-card absolute w-full transition-all duration-500 ${
-              activeCard === 'education' 
-                ? 'opacity-100 transform-none z-20' 
-                : 'opacity-0 translate-y-8 z-10'
-            }`}
-          >
+          <div className="neo-card scroll-appear">
             <div className="absolute -top-3 -left-3 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary">
               <GraduationCap size={28} />
             </div>
