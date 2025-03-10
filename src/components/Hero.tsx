@@ -45,7 +45,7 @@ const Hero = () => {
             <span className="gradient-text">Rishika Drona</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Driving innovation through data science and machine learning solutions, with expertise in ETL development, MLOps and AI.
+            Driving innovation through Data Science, Machine Learning and Artificial Intelligence solutions
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
