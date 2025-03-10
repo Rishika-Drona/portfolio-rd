@@ -10,6 +10,7 @@ import Contact from '@/components/Contact';
 import TableauVisualizations from '@/components/TableauVisualizations';
 import BlogPosts from '@/components/BlogPosts';
 import Certifications from '@/components/Certifications';
+import BackgroundAnimation from '@/components/BackgroundAnimation';
 import { ArrowUp } from 'lucide-react';
 
 const Index = () => {
@@ -158,6 +159,7 @@ const Index = () => {
   
   return (
     <div className="min-h-screen overflow-x-hidden relative z-10" style={{ perspective: '1000px' }}>
+      <BackgroundAnimation />
       <Navbar />
       
       <main className="relative z-10">
