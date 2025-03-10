@@ -1,22 +1,25 @@
 
 import { useEffect, useRef } from 'react';
-import { ExternalLink, BookOpen, Sparkles, Flame } from 'lucide-react';
+import { ExternalLink, BookOpen, Sparkles } from 'lucide-react';
 
 const blogPostsData = [
   {
     title: "Machine Learning Fundamentals: A Practical Approach",
     description: "Exploring the core concepts of machine learning with hands-on examples and practical applications in data science.",
-    url: "https://medium.com/@rishikadrona.rd/machine-learning-fundamentals-a-practical-approach-7d82ea7c3f0b"
+    url: "https://medium.com/@rishikadrona.rd/machine-learning-fundamentals-a-practical-approach-7d82ea7c3f0b",
+    image: "/lovable-uploads/e4b421dd-6d4c-4c55-a92a-21ff31568e66.png"
   },
   {
     title: "Data Visualization Techniques for Business Intelligence",
     description: "How effective data visualization can transform raw data into actionable business insights using modern tools.",
-    url: "https://medium.com/@rishikadrona.rd"
+    url: "https://medium.com/@rishikadrona.rd",
+    image: "/lovable-uploads/3c40327b-1c68-4f43-9b6c-7cc01de0296f.png"
   },
   {
     title: "Natural Language Processing in the Real World",
     description: "Examining how NLP is transforming industries from healthcare to finance with practical implementation examples.",
-    url: "https://medium.com/@rishikadrona.rd"
+    url: "https://medium.com/@rishikadrona.rd",
+    image: "/lovable-uploads/64be17b3-dc7c-4051-be74-dd5eb849b1a4.png"
   }
 ];
 
@@ -67,7 +70,14 @@ const BlogPosts = () => {
               key={index} 
               className="blog-card neo-card overflow-hidden h-full flex flex-col group hover:shadow-lg transition-all duration-500"
             >
-              <div className="p-6">  
+              <div className="w-full h-48 overflow-hidden">
+                <img 
+                  src={post.image} 
+                  alt={post.title} 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="p-6 flex flex-col flex-grow">  
                 <h3 className="text-lg font-semibold mb-2 text-gray-900 group-hover:text-primary transition-colors">{post.title}</h3>
                 <p className="text-gray-700 text-sm flex-grow">{post.description}</p>
                 
