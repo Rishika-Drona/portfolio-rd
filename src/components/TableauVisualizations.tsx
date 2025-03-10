@@ -1,22 +1,25 @@
 
 import { useEffect, useRef } from 'react';
-import { ExternalLink, BarChart4, Sparkles, Zap, Gem } from 'lucide-react';
+import { ExternalLink, BarChart4, Gem } from 'lucide-react';
 
 const visualizationData = [
   {
     title: "Customer Segmentation Analysis",
     description: "Interactive dashboard analyzing customer segments based on purchase behavior and demographics.",
-    tableauUrl: "https://public.tableau.com/app/profile/rishika.drona/vizzes"
+    tableauUrl: "https://public.tableau.com/app/profile/rishika.drona/vizzes",
+    image: "/lovable-uploads/d5a1e8b3-f9e9-4d36-ab60-0a5ce2a0668d.png"
   },
   {
     title: "Sales Performance Metrics",
     description: "Comprehensive visualization of sales metrics across regions with trend analysis and forecasting.",
-    tableauUrl: "https://public.tableau.com/app/profile/rishika.drona/vizzes"
+    tableauUrl: "https://public.tableau.com/app/profile/rishika.drona/vizzes",
+    image: "/lovable-uploads/e73e527d-17b5-46e4-b89e-e68f217960c9.png"
   },
   {
     title: "Product Performance Dashboard",
     description: "Analysis of product performance metrics including sales volume, revenue, and customer satisfaction scores.",
-    tableauUrl: "https://public.tableau.com/app/profile/rishika.drona/vizzes"
+    tableauUrl: "https://public.tableau.com/app/profile/rishika.drona/vizzes",
+    image: "/lovable-uploads/cfdbad8e-9dbf-4f8e-93c0-8f9b7db94a4b.png"
   }
 ];
 
@@ -64,20 +67,29 @@ const TableauVisualizations = () => {
           {visualizationData.map((viz, index) => (
             <div 
               key={index} 
-              className="neo-card overflow-hidden h-full flex flex-col group hover:shadow-lg transition-all duration-500 p-6"
+              className="neo-card overflow-hidden h-full flex flex-col group hover:shadow-lg transition-all duration-500"
             >
-              <h3 className="text-lg font-semibold mb-2 text-gray-900 group-hover:text-primary transition-colors">{viz.title}</h3>
-              <p className="text-gray-700 text-sm flex-grow">{viz.description}</p>
-              
-              <a 
-                href={viz.tableauUrl} 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center justify-center w-full bg-primary/10 text-primary font-medium py-2 px-4 rounded-lg hover:bg-primary hover:text-white transition-all duration-300 text-sm group"
-              >
-                <span>View Dashboard</span>
-                <ExternalLink size={14} className="ml-2 transition-transform group-hover:translate-x-1" />
-              </a>
+              <div className="w-full h-48 overflow-hidden">
+                <img 
+                  src={viz.image} 
+                  alt={viz.title} 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-lg font-semibold mb-2 text-gray-900 group-hover:text-primary transition-colors">{viz.title}</h3>
+                <p className="text-gray-700 text-sm flex-grow">{viz.description}</p>
+                
+                <a 
+                  href={viz.tableauUrl} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center justify-center w-full bg-primary/10 text-primary font-medium py-2 px-4 rounded-lg hover:bg-primary hover:text-white transition-all duration-300 text-sm group"
+                >
+                  <span>View Dashboard</span>
+                  <ExternalLink size={14} className="ml-2 transition-transform group-hover:translate-x-1" />
+                </a>
+              </div>
             </div>
           ))}
         </div>
